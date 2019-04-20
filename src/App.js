@@ -1,26 +1,34 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Todos from "./Components/Todos";
 
 class App extends Component {
+  state = {
+    todos: [
+      {
+        id: 1,
+        title: "Take out the trash",
+        completed: false
+      },
+      {
+        id: 2,
+        title: "Pay attention to Madeline",
+        completed: false
+      },
+      {
+        id: 3,
+        title: "Meow at the cat",
+        completed: false
+      }
+    ]
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <span class="badge badge-primary">Primary</span>
+      <div>
+        <Todos />
       </div>
     );
   }
