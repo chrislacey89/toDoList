@@ -1,20 +1,37 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import Checkbox from "@material-ui/core/Checkbox";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+
 export class TodoItem extends Component {
   render() {
     return (
-      <div className="list-group">
-        <div
-          className={
-            this.props.todo.completed
-              ? "list-group-item disabled"
-              : "list-group-item"
-          }
+      <List>
+        <ListItem
+          // key={value}
+          role={undefined}
+          dense
+          button
+          // onClick={this.handleToggle(value)}
         >
-          {this.props.todo.title}
-        </div>
-      </div>
+          <Checkbox
+          // checked={this.state.checked.indexOf(value) !== -1}
+          // tabIndex={-1}
+          />
+          <ListItemText primary={this.props.todo.title} />
+          <ListItemSecondaryAction>
+            <IconButton aria-label="Comments">
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      </List>
     );
   }
 }
