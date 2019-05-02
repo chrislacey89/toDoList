@@ -26,10 +26,15 @@ class App extends Component {
     ]
   };
 
+  markComplete = id => {
+    console.log(id);
+  };
+
   render() {
     return (
       <div>
-        <Todos todos={this.state.todos} />
+        {/* gets selected Id data from Todos.js*/}
+        <Todos todos={this.state.todos} markComplete={this.markComplete} />
       </div>
     );
   }

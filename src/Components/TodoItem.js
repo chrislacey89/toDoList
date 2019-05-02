@@ -21,8 +21,9 @@ export class TodoItem extends Component {
           // onClick={this.handleToggle(value)}
         >
           <Checkbox
-          // checked={this.state.checked.indexOf(value) !== -1}
-          // tabIndex={-1}
+            //markComplete will be picked up by toDos.js
+            // bind allows us to send up the id to the top of the tree
+            onChange={this.props.markComplete.bind(this, this.props.todo.id)}
           />
           <ListItemText primary={this.props.todo.title} />
           <ListItemSecondaryAction>
