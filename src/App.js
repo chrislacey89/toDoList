@@ -27,7 +27,15 @@ class App extends Component {
   };
 
   markComplete = id => {
-    console.log(id);
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        // if the todo is = to the id that is passed into the function, then set it to the opposite
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      })
+    });
   };
 
   render() {
