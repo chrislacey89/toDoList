@@ -21,10 +21,11 @@ export class TodoItem extends Component {
           // onClick={this.handleToggle(value)}
         >
           <Checkbox
-            //markComplete will be picked up by toDos.js
+            //toggleComplete will be picked up by toDos.js
             // bind allows us to send up the id to the top of the tree
-            onChange={this.props.markComplete.bind(this, this.props.todo.id)}
+            onChange={this.props.toggleComplete.bind(this, this.props.todo.id)}
           />
+          {/* props.todo is coming from map function in todos.js */}
           <ListItemText primary={this.props.todo.title} />
           <ListItemSecondaryAction>
             <IconButton aria-label="Comments">

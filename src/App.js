@@ -26,7 +26,7 @@ class App extends Component {
     ]
   };
 
-  markComplete = id => {
+  toggleComplete = id => {
     this.setState({
       todos: this.state.todos.map(todo => {
         // if the todo is = to the id that is passed into the function, then set it to the opposite
@@ -42,7 +42,7 @@ class App extends Component {
     return (
       <div>
         {/* gets selected Id data from Todos.js*/}
-        <Todos todos={this.state.todos} markComplete={this.markComplete} />
+        <Todos todos={this.state.todos} toggleComplete={this.toggleComplete} />
       </div>
     );
   }
