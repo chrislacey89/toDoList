@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import TodoItem from "./TodoItem";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import TodoItem from './TodoItem';
+import PropTypes from 'prop-types';
 
 class Todos extends Component {
   render() {
@@ -13,6 +13,7 @@ class Todos extends Component {
         todo={todo}
         //sends id selected data to App.js
         toggleComplete={this.props.toggleComplete}
+        deleteTodo={this.props.deleteTodo}
       />
     ));
   }

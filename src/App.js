@@ -1,31 +1,32 @@
-import React, { Component } from "react";
-import "./App.css";
+import React, { Component } from 'react';
+import './App.css';
 // import "bootstrap/dist/css/bootstrap.min.css";
-import "typeface-roboto";
+import 'typeface-roboto';
 
-import Todos from "./Components/Todos";
+import Todos from './Components/Todos';
 
 class App extends Component {
   state = {
     todos: [
       {
         id: 1,
-        title: "Take out the trash",
+        title: 'Take out the trash',
         completed: true
       },
       {
         id: 2,
-        title: "Pay attention to Madeline",
+        title: 'Pay attention to Madeline',
         completed: false
       },
       {
         id: 3,
-        title: "Meow at the cat",
+        title: 'Meow at the cat',
         completed: false
       }
     ]
   };
 
+  //Toggle Complete
   toggleComplete = id => {
     this.setState({
       todos: this.state.todos.map(todo => {
@@ -38,11 +39,20 @@ class App extends Component {
     });
   };
 
+  //Delete Todo item
+  deleteTodo = id => {
+    console.log(id);
+  };
+
   render() {
     return (
       <div>
         {/* gets selected Id data from Todos.js*/}
-        <Todos todos={this.state.todos} toggleComplete={this.toggleComplete} />
+        <Todos
+          todos={this.state.todos}
+          toggleComplete={this.toggleComplete}
+          deleteTodo={this.deleteTodo}
+        />
       </div>
     );
   }
