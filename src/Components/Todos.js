@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
+import AddTodo from './AddTodo';
 import PropTypes from 'prop-types';
 
 class Todos extends Component {

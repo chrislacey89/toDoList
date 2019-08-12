@@ -4,6 +4,7 @@ import './App.css';
 import 'typeface-roboto';
 
 import Todos from './Components/Todos';
+import AddtoDo from './Components/AddTodo';
 
 class App extends Component {
   state = {
@@ -55,6 +56,7 @@ class App extends Component {
           toggleComplete={this.toggleComplete}
           deleteTodo={this.deleteTodo}
         />
+        <AddtoDo />
       </div>
     );
   }
