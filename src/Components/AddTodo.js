@@ -32,9 +32,6 @@ export class AddTodo extends Component {
             <ListItem dense button>
               <Grid container spacing={1} alignItems='flex-end'>
                 <Grid item>
-                  <Add />
-                </Grid>
-                <Grid item>
                   <TextField
                     id='input-with-icon-grid'
                     label='Add a new item'
