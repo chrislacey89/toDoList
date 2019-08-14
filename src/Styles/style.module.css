@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  /* This aligns items to the end line on main-axis */
+  justify-content: flex-end;
+}
+
+.rightAlign {
+  /* display: flex;
+  align-self: flex-end; */
+}
+
+.centerAlign {
+  /* display: flex;
+  align-items: center; */
+}

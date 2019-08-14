@@ -3,24 +3,26 @@ import './App.css';
 // import "bootstrap/dist/css/bootstrap.min.css";
 import 'typeface-roboto';
 
+import Header from './Components/Header';
 import Todos from './Components/Todos';
 import AddtoDo from './Components/AddTodo';
+import uuid from 'uuid';
 
 class App extends Component {
   state = {
     todos: [
       {
-        id: 1,
+        id: uuid.v4(),
         title: 'Take out the trash',
         completed: true
       },
       {
-        id: 2,
+        id: uuid.v4(),
         title: 'Pay attention to Madeline',
         completed: false
       },
       {
-        id: 3,
+        id: uuid.v4(),
         title: 'Meow at the cat',
         completed: false
       }
@@ -47,16 +49,27 @@ class App extends Component {
     });
   };
 
+  //Add Todo
+  addTodo = title => {
+    const newTodo = {
+      id: uuid.v4(),
+      title: title,
+      completed: false
+    };
+    this.setState({ todos: [...this.state.todos, newTodo] });
+  };
+
   render() {
     return (
       <div>
+        <Header />
         {/* gets selected Id data from Todos.js*/}
         <Todos
           todos={this.state.todos}
           toggleComplete={this.toggleComplete}
           deleteTodo={this.deleteTodo}
         />
-        <AddtoDo />
+        <AddtoDo addTodo={this.addTodo} />
       </div>
     );
   }

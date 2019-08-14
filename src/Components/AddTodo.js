@@ -1,5 +1,4 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -7,29 +6,50 @@ import Add from '@material-ui/icons/Add';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
-// const useStyles = makeStyles(theme => ({
-//   margin: {
-//     margin: theme.spacing(1)
-//   }
-// }));
+export class AddTodo extends Component {
+  state = {
+    title: ''
+  };
 
-export default function addTodo() {
-  //   const classes = useStyles();
+  onChange = e =>
+    this.setState({
+      [e.target.name]: e.target.value
+    });
 
-  return (
-    <div>
-      <List>
-        <ListItem dense button>
-          <Grid container spacing={1} alignItems='flex-end'>
-            <Grid item>
-              <Add />
-            </Grid>
-            <Grid item>
-              <TextField id='input-with-icon-grid' label='Add a new item' />
-            </Grid>
-          </Grid>
-        </ListItem>
-      </List>
-    </div>
-  );
+  onSubmit = e => {
+    e.preventDefault();
+    //pass title up through state
+    this.props.addTodo(this.state.title);
+    //set title back to nothing
+    this.setState({ title: '' });
+  };
+
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.onSubmit}>
+          <List>
+            <ListItem dense button>
+              <Grid container spacing={1} alignItems='flex-end'>
+                <Grid item>
+                  <Add />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id='input-with-icon-grid'
+                    label='Add a new item'
+                    name='title'
+                    value={this.state.title}
+                    onChange={this.onChange}
+                  />
+                </Grid>
+              </Grid>
+            </ListItem>
+          </List>
+        </form>
+      </div>
+    );
+  }
 }
+
+export default AddTodo;
