@@ -9,6 +9,7 @@ import Header from './Components/Header';
 import Todos from './Components/Todos';
 import AddtoDo from './Components/AddTodo';
 import About from './Components/Pages/About';
+import Login from './Components/Pages/Login';
 
 import uuid from 'uuid';
 
@@ -84,6 +85,7 @@ class App extends Component {
             )}
           />
           <Route path='/about' component={About} />
+          <Route path='/login' component={Login} />
         </div>
       </Router>
     );
