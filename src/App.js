@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './App.css';
 // import "bootstrap/dist/css/bootstrap.min.css";
 import 'typeface-roboto';
@@ -6,6 +8,8 @@ import 'typeface-roboto';
 import Header from './Components/Header';
 import Todos from './Components/Todos';
 import AddtoDo from './Components/AddTodo';
+import About from './Components/Pages/About';
+
 import uuid from 'uuid';
 
 class App extends Component {
@@ -61,16 +65,27 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        {/* gets selected Id data from Todos.js*/}
-        <Todos
-          todos={this.state.todos}
-          toggleComplete={this.toggleComplete}
-          deleteTodo={this.deleteTodo}
-        />
-        <AddtoDo addTodo={this.addTodo} />
-      </div>
+      <Router>
+        <div>
+          <Header />
+          <Route
+            exact
+            path='/'
+            render={props => (
+              <React.Fragment>
+                {/* gets selected Id data from Todos.js*/}
+                <Todos
+                  todos={this.state.todos}
+                  toggleComplete={this.toggleComplete}
+                  deleteTodo={this.deleteTodo}
+                />
+                <AddtoDo addTodo={this.addTodo} />
+              </React.Fragment>
+            )}
+          />
+          <Route path='/about' component={About} />
+        </div>
+      </Router>
     );
   }
 }
