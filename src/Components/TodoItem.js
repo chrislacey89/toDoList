@@ -10,10 +10,24 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 export class TodoItem extends Component {
+  getStyle = () => {
+    return {
+      textDecoration: this.props.todo.completed ? 'line-through' : 'none'
+    };
+  };
+
+  //check if item is completed. Will mark box checked
+  checked = () => {
+    if (this.props.todo.completed === true) {
+      return true;
+    }
+  };
+
   render() {
     return (
       <List>
         <ListItem
+          style={this.getStyle()}
           // key={value}
           role={undefined}
           dense
@@ -21,6 +35,7 @@ export class TodoItem extends Component {
           // onClick={this.handleToggle(value)}
         >
           <Checkbox
+            checked={this.checked()}
             //toggleComplete will be picked up by toDos.js
             // bind allows us to send up the id to the top of the tree
             onChange={this.props.toggleComplete.bind(this, this.props.todo.id)}
@@ -41,7 +56,9 @@ export class TodoItem extends Component {
 }
 
 TodoItem.propTypes = {
-  todos: PropTypes.object.isRequired
+  todos: PropTypes.object.isRequired,
+  markComplete: PropTypes.func.isRequired,
+  delTodo: PropTypes.func.isRequired
 };
 
 export default TodoItem;
