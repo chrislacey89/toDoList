@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
-import AddTodo from './AddTodo';
 import PropTypes from 'prop-types';
 
 class Todos extends Component {
   render() {
-    console.log(this.props.todos);
-    // We get props.todos from App.js. Set the props there
+    //  props.todos comes from from App.js. The Props is set there
     return this.props.todos.map(todo => (
       <TodoItem
         key={todo.id}

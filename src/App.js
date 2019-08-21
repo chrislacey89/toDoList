@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.css';
-// import "bootstrap/dist/css/bootstrap.min.css";
 import 'typeface-roboto';
 
 import Header from './Components/Header';
@@ -11,7 +10,7 @@ import AddtoDo from './Components/AddTodo';
 import About from './Components/Pages/About';
 import Login from './Components/Pages/Login';
 
-import uuid from 'uuid';
+// import uuid from 'uuid';
 import axios from 'axios';
 
 class App extends Component {
@@ -19,13 +18,15 @@ class App extends Component {
     todos: []
   };
 
+  //Get info from backend then update state
   componentDidMount() {
     axios
-      .get('https://jsonplaceholder.typicode.com/todos?_limit=4')
+      .get('http://localhost:5000/api/todos/')
       .then(res => this.setState({ todos: res.data }));
   }
 
   //Toggle Complete
+  // Todo: add a Put request to method
   toggleComplete = id => {
     this.setState({
       todos: this.state.todos.map(todo => {
