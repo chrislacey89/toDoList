@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Add from '@material-ui/icons/Add';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
@@ -12,11 +11,6 @@ export class AddTodo extends Component {
     title: ''
   };
 
-  onChange = e =>
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-
   onSubmit = e => {
     e.preventDefault();
     //pass title up through state
@@ -24,6 +18,11 @@ export class AddTodo extends Component {
     //set title back to nothing
     this.setState({ title: '' });
   };
+
+  onChange = e =>
+    this.setState({
+      [e.target.name]: e.target.value
+    });
 
   render() {
     return (

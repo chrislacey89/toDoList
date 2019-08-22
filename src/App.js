@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.css';
+// import "bootstrap/dist/css/bootstrap.min.css";
 import 'typeface-roboto';
 
 import Header from './Components/Header';
@@ -21,9 +22,20 @@ class App extends Component {
   //Get info from backend then update state
   componentDidMount() {
     axios
-      .get('http://localhost:5000/api/todos/')
+      .get('https://jsonplaceholder.typicode.com/todos?_limit=4')
       .then(res => this.setState({ todos: res.data }));
   }
+
+  //Add Todo
+  addTodo = title => {
+    axios
+      .post('https://jsonplaceholder.typicode.com/todos', {
+        title: title,
+        completed: false
+      })
+      .then(res => this.setState({ todos: [...this.state.todos, res.data] }))
+      .then(console.log(this.state));
+  };
 
   //Toggle Complete
   // Todo: add a Put request to method
@@ -48,16 +60,6 @@ class App extends Component {
           todos: [...this.state.todos.filter(todo => todo.id !== id)]
         });
       });
-  };
-
-  //Add Todo
-  addTodo = title => {
-    axios
-      .post('https://jsonplaceholder.typicode.com/todos', {
-        title: title,
-        completed: false
-      })
-      .then(res => this.setState({ todos: [...this.state.todos, res.data] }));
   };
 
   render() {
