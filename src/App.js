@@ -22,14 +22,16 @@ class App extends Component {
   //Get info from backend then update state
   componentDidMount() {
     axios
-      .get('https://jsonplaceholder.typicode.com/todos?_limit=4')
-      .then(res => this.setState({ todos: res.data }));
+      .get('http://localhost:5000/api/todos/')
+      // .then(res => console.log(res.data.todos))
+
+      .then(res => this.setState({ todos: res.data.todos }));
   }
 
   //Add Todo
   addTodo = title => {
     axios
-      .post('https://jsonplaceholder.typicode.com/todos', {
+      .post('http://localhost:5000/api/todos/', {
         title: title,
         completed: false
       })

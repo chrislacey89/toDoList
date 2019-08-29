@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -55,10 +55,10 @@ export class TodoItem extends Component {
   }
 }
 
-TodoItem.propTypes = {
-  todos: PropTypes.object.isRequired,
-  markComplete: PropTypes.func.isRequired,
-  delTodo: PropTypes.func.isRequired
-};
+// TodoItem.propTypes = {
+//   todos: PropTypes.object.isRequired,
+//   markComplete: PropTypes.func.isRequired,
+//   delTodo: PropTypes.func.isRequired
+// };
 
 export default TodoItem;

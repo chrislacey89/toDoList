@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -49,9 +49,9 @@ export class AddTodo extends Component {
   }
 }
 
-//PropTypes
-AddTodo.propTypes = {
-  addTodo: PropTypes.func.isRequired
-};
+// //PropTypes
+// AddTodo.propTypes = {
+//   addTodo: PropTypes.func.isRequired
+// };
 
 export default AddTodo;
