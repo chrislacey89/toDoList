@@ -29,14 +29,25 @@ class App extends Component {
   }
 
   //Add Todo
+  // addTodo = title => {
+  //   axios
+  //     .post('http://localhost:5000/api/todos/', {
+  //       title: title,
+  //       completed: false
+  //     })
+  //     .then(res => this.setState({ todos: [...this.state.todos, res.data] }))
+  //     .then(console.log(this.state));
+  // };
+
   addTodo = title => {
     axios
       .post('http://localhost:5000/api/todos/', {
         title: title,
         completed: false
       })
-      .then(res => this.setState({ todos: [...this.state.todos, res.data] }))
-      .then(console.log(this.state));
+      .then(res =>
+        this.setState({ todos: [...this.state.todos, res.data.todos] })
+      );
   };
 
   //Toggle Complete

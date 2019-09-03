@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
+import uuid from 'uuid';
 // import PropTypes from 'prop-types';
 
 class Todos extends Component {
@@ -7,7 +8,7 @@ class Todos extends Component {
     //  props.todos comes from from App.js. The Props is set there
     return this.props.todos.map(todo => (
       <TodoItem
-        key={todo.id}
+        key={uuid.v4()}
         // pass on everything from the state in app.js
         todo={todo}
         //sends id selected data to App.js

@@ -28,7 +28,6 @@ export class TodoItem extends Component {
       <List>
         <ListItem
           style={this.getStyle()}
-          // key={value}
           role={undefined}
           dense
           button
