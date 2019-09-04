@@ -46,7 +46,7 @@ class App extends Component {
         completed: false
       })
       .then(res =>
-        this.setState({ todos: [...this.state.todos, res.data.todos] })
+        this.setState({ todos: [...this.state.todos, res.data.todo] })
       );
   };
 
