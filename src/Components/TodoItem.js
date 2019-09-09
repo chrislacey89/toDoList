@@ -4,10 +4,11 @@ import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
+// import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import TextField from '@material-ui/core/TextField';
 
 export class TodoItem extends Component {
   getStyle = () => {
@@ -39,8 +40,18 @@ export class TodoItem extends Component {
             // bind allows us to send up the id to the top of the tree
             onChange={this.props.toggleComplete.bind(this, this.props.todo.id)}
           />
+          <form noValidate autoComplete='off'>
+            <TextField
+              disabled={this.checked()}
+              id='standard-with-placeholder'
+              label={this.props.todo.title}
+              placeholder='Edit Item'
+              // className={classes.textField}
+              margin='normal'
+            />
+          </form>
           {/* props.todo is coming from map function in todos.js */}
-          <ListItemText primary={this.props.todo.title} />
+          {/* <ListItemText primary={this.props.todo.title} /> */}
           <ListItemSecondaryAction
             onClick={this.props.deleteTodo.bind(this, this.props.todo.id)}
           >
