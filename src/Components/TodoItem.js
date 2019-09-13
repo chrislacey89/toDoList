@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-// import ListItemText from '@material-ui/core/ListItemText';
+import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -38,7 +38,7 @@ export class TodoItem extends Component {
             checked={this.checked()}
             //toggleComplete will be picked up by toDos.js
             // bind allows us to send up the id to the top of the tree
-            onChange={this.props.toggleComplete.bind(this, this.props.todo.id)}
+            onChange={this.props.toggleComplete.bind(this, this.props.todo._id)}
           />
           <form noValidate autoComplete='off'>
             <TextField
@@ -50,6 +50,8 @@ export class TodoItem extends Component {
               margin='normal'
             />
           </form>
+          <ListItemText primary={this.props.todo.title} />
+
           {/* props.todo is coming from map function in todos.js */}
           {/* <ListItemText primary={this.props.todo.title} /> */}
           <ListItemSecondaryAction

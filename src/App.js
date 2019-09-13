@@ -23,10 +23,16 @@ class App extends Component {
   componentDidMount() {
     axios
       .get('http://localhost:5000/api/todos/')
-      // .then(res => console.log(res.data.todos))
+      // .then(res => console.log(res.data.todos));
 
       .then(res => this.setState({ todos: res.data.todos }));
   }
+
+  // componentDidMount() {
+  //   axios
+  //     .get('https://jsonplaceholder.typicode.com/todos?_limit=4')
+  //     .then(res => this.setState({ todos: res.data }));
+  // }
 
   //Add Todo
   // addTodo = title => {
@@ -56,7 +62,7 @@ class App extends Component {
     this.setState({
       todos: this.state.todos.map(todo => {
         // if the todo is = to the id that is passed into the function, then set it to the opposite
-        if (todo.id === id) {
+        if (todo._id === id) {
           todo.completed = !todo.completed;
         }
         return todo;
