@@ -24,45 +24,57 @@ export class TodoItem extends Component {
     }
   };
 
+  onSubmit = e => {
+    e.preventDefault();
+    //pass title up through state
+    console.log('test');
+  };
+
   render() {
     return (
-      <List>
-        <ListItem
-          style={this.getStyle()}
-          role={undefined}
-          dense
-          button
-          // onClick={this.handleToggle(value)}
-        >
-          <Checkbox
-            checked={this.checked()}
-            //toggleComplete will be picked up by toDos.js
-            // bind allows us to send up the id to the top of the tree
-            onChange={this.props.toggleComplete.bind(this, this.props.todo._id)}
-          />
-          <form noValidate autoComplete='off'>
-            <TextField
-              disabled={this.checked()}
-              id='standard-with-placeholder'
-              label={this.props.todo.title}
-              placeholder='Edit Item'
-              // className={classes.textField}
-              margin='normal'
-            />
-          </form>
-          <ListItemText primary={this.props.todo.title} />
-
-          {/* props.todo is coming from map function in todos.js */}
-          {/* <ListItemText primary={this.props.todo.title} /> */}
-          <ListItemSecondaryAction
-            onClick={this.props.deleteTodo.bind(this, this.props.todo.id)}
+      <form onSubmit={this.onSubmit}>
+        <List>
+          <ListItem
+            style={this.getStyle()}
+            role={undefined}
+            dense
+            button
+            // onClick={this.handleToggle(value)}
           >
-            <IconButton aria-label='Comments'>
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-      </List>
+            <Checkbox
+              checked={this.checked()}
+              //toggleComplete will be picked up by toDos.js
+              // bind allows us to send up the id to the top of the tree
+              onChange={this.props.toggleComplete.bind(
+                this,
+                this.props.todo._id
+              )}
+            />
+            <form noValidate autoComplete='off'>
+              <TextField
+                disabled={this.checked()}
+                id='standard-with-placeholder'
+                label={this.props.todo.title}
+                placeholder='Edit Item'
+                // className={classes.textField}
+                margin='normal'
+                onChange={this.onChange}
+              />
+            </form>
+            {/* <ListItemText primary={this.props.todo.title} /> */}
+
+            {/* props.todo is coming from map function in todos.js */}
+            {/* <ListItemText primary={this.props.todo.title} /> */}
+            <ListItemSecondaryAction
+              onClick={this.props.deleteTodo.bind(this, this.props.todo.id)}
+            >
+              <IconButton aria-label='Comments'>
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
+      </form>
     );
   }
 }
