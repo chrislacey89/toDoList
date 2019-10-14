@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
+// import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -24,11 +24,17 @@ export class TodoItem extends Component {
     }
   };
 
-  onSubmit = e => {
-    e.preventDefault();
-    //pass title up through state
-    console.log('test');
-  };
+  // onSubmit = e => {
+  //   e.preventDefault();
+  //   //pass title up through state
+  //   console.log('test');
+  //   this.props.updateTodo(this.state.id);
+  // };
+
+  // onChange = e =>
+  //   this.setState({
+  //     [e.target.title]: e.target.value
+  //   });
 
   render() {
     return (
@@ -58,7 +64,7 @@ export class TodoItem extends Component {
                 placeholder='Edit Item'
                 // className={classes.textField}
                 margin='normal'
-                onChange={this.onChange}
+                onChange={this.props.updateTodo.bind(this, this.props.todo._id)}
               />
             </form>
             {/* <ListItemText primary={this.props.todo.title} /> */}

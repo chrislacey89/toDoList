@@ -13,6 +13,7 @@ class Todos extends Component {
         todo={todo}
         //sends id selected data to App.js
         toggleComplete={this.props.toggleComplete}
+        updateTodo={this.props.updateTodo}
         deleteTodo={this.props.deleteTodo}
       />
     ));

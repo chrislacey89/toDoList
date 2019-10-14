@@ -56,8 +56,19 @@ class App extends Component {
       );
   };
 
+  // updateTodo
+  updateTodo = (id, e) => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo._id === id) {
+          todo.title = e.target.value;
+        }
+        return todo;
+      })
+    });
+  };
+
   //Toggle Complete
-  // Todo: add a Put request to method
   toggleComplete = id => {
     this.setState({
       todos: this.state.todos.map(todo => {
@@ -96,6 +107,7 @@ class App extends Component {
                   todos={this.state.todos}
                   toggleComplete={this.toggleComplete}
                   deleteTodo={this.deleteTodo}
+                  updateTodo={this.updateTodo}
                 />
                 <AddtoDo addTodo={this.addTodo} />
               </React.Fragment>
