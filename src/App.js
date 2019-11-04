@@ -47,24 +47,43 @@ class App extends Component {
 
   addTodo = title => {
     axios
-      .post('http://localhost:5000/api/todos/', {
+      .post(`http://localhost:5000/api/todos/`, {
         title: title,
         completed: false
       })
-      .then(res =>
-        this.setState({ todos: [...this.state.todos, res.data.todo] })
+      .then(
+        res => this.setState({ todos: [...this.state.todos, res.data.todo] }),
+        console.log(
+          this.state.todos.map(todo => {
+            let arrLength = todo.length;
+            let realID = todo._id;
+            return realID;
+          })
+        )
+        // console.log(this.state.todos.lastIndexOf('_id'))
       );
   };
 
   // updateTodo
-  updateTodo = (id, e) => {
+  updateTodo = (res, e) => {
+    console.log(res._id);
+    let passedTitle;
+
     this.setState({
       todos: this.state.todos.map(todo => {
-        if (todo._id === id) {
+        if (todo._id === res._id) {
           todo.title = e.target.value;
+          todo.completed = e.target.value;
+          passedTitle = todo.title;
+
+          console.log(`Current Title: ${todo.title}`);
         }
         return todo;
       })
+    });
+
+    axios.put(`http://localhost:5000/api/todos/${res._id}`, {
+      title: passedTitle
     });
   };
 

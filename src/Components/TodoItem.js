@@ -9,6 +9,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { Input } from '@material-ui/core';
 
 export class TodoItem extends Component {
   getStyle = () => {
@@ -24,12 +26,11 @@ export class TodoItem extends Component {
     }
   };
 
-  // onSubmit = e => {
-  //   e.preventDefault();
-  //   //pass title up through state
-  //   console.log('test');
-  //   this.props.updateTodo(this.state.id);
-  // };
+  onSubmit = e => {
+    e.preventDefault();
+    //pass title up through state
+    this.props.updateTodo.bind(this, this.props.todo._id);
+  };
 
   // onChange = e =>
   //   this.setState({
@@ -38,7 +39,7 @@ export class TodoItem extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form>
         <List>
           <ListItem
             style={this.getStyle()}
@@ -56,17 +57,18 @@ export class TodoItem extends Component {
                 this.props.todo._id
               )}
             />
-            <form noValidate autoComplete='off'>
-              <TextField
-                disabled={this.checked()}
-                id='standard-with-placeholder'
-                label={this.props.todo.title}
-                placeholder='Edit Item'
-                // className={classes.textField}
-                margin='normal'
-                onChange={this.props.updateTodo.bind(this, this.props.todo._id)}
-              />
-            </form>
+            <Input
+              disabled={this.checked()}
+              id='standard-with-placeholder'
+              label={this.props.todo.title}
+              defaultValue={this.props.todo.title}
+              // className={classes.textField}
+              type='text'
+              margin='normal'
+              onBlur={this.props.updateTodo.bind(this, this.props.todo)}
+            />
+            {/* <Button variant='contained'>Submit</Button> */}
+
             {/* <ListItemText primary={this.props.todo.title} /> */}
 
             {/* props.todo is coming from map function in todos.js */}
