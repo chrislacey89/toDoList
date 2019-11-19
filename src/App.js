@@ -28,23 +28,6 @@ class App extends Component {
       .then(res => this.setState({ todos: res.data.todos }));
   }
 
-  // componentDidMount() {
-  //   axios
-  //     .get('https://jsonplaceholder.typicode.com/todos?_limit=4')
-  //     .then(res => this.setState({ todos: res.data }));
-  // }
-
-  //Add Todo
-  // addTodo = title => {
-  //   axios
-  //     .post('http://localhost:5000/api/todos/', {
-  //       title: title,
-  //       completed: false
-  //     })
-  //     .then(res => this.setState({ todos: [...this.state.todos, res.data] }))
-  //     .then(console.log(this.state));
-  // };
-
   addTodo = title => {
     axios
       .post(`http://localhost:5000/api/todos/`, {
@@ -64,16 +47,45 @@ class App extends Component {
       );
   };
 
+  // submitTodo
+  submitTodo = (res, e) => {
+    e.preventDefault();
+    console.log(res._id);
+    //pass title up through state
+    console.log(this);
+
+    let passedTitle;
+
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        console.log(e.target);
+        if (todo._id === res._id) {
+          todo.title = this.element.value;
+
+          // passedTitle = todo.title;
+
+          console.log(`Current Title: ${todo.title}`);
+        }
+        return todo;
+      })
+    });
+
+    axios.put(`http://localhost:5000/api/todos/${res._id}`, {
+      title: passedTitle
+    });
+  };
+
   // updateTodo
   updateTodo = (res, e) => {
     console.log(res._id);
+    console.log('pew');
     let passedTitle;
 
     this.setState({
       todos: this.state.todos.map(todo => {
         if (todo._id === res._id) {
           todo.title = e.target.value;
-          todo.completed = e.target.value;
+
           passedTitle = todo.title;
 
           console.log(`Current Title: ${todo.title}`);
@@ -88,27 +100,44 @@ class App extends Component {
   };
 
   //Toggle Complete
-  toggleComplete = id => {
+  toggleComplete = res => {
+    let passedCompleted;
+
     this.setState({
       todos: this.state.todos.map(todo => {
         // if the todo is = to the id that is passed into the function, then set it to the opposite
-        if (todo._id === id) {
+        if (todo._id === res._id) {
           todo.completed = !todo.completed;
+          passedCompleted = todo.completed;
         }
         return todo;
       })
+    });
+
+    axios.put(`http://localhost:5000/api/todos/${res._id}`, {
+      completed: passedCompleted
     });
   };
 
   //Delete Todo item
   deleteTodo = id => {
-    axios
-      .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-      .then(res => {
-        this.setState({
-          todos: [...this.state.todos.filter(todo => todo.id !== id)]
+    axios.delete(`http://localhost:5000/api/todos/${id}`).then(
+      res => {
+        // console.log(this.state.todos);
+
+        this.setState(prevState => {
+          const updatedTodos = prevState.todos.filter(
+            todoItem => todoItem._id !== id
+          );
+          return { todos: updatedTodos };
         });
-      });
+      }
+      // res => {
+      //   this.setState({
+      //     todos: [...this.state.todos.filter(todo => todo.id !== id)]
+      //   });
+      // }
+    );
   };
 
   render() {
@@ -127,6 +156,7 @@ class App extends Component {
                   toggleComplete={this.toggleComplete}
                   deleteTodo={this.deleteTodo}
                   updateTodo={this.updateTodo}
+                  submitTodo={this.submitTodo}
                 />
                 <AddtoDo addTodo={this.addTodo} />
               </React.Fragment>

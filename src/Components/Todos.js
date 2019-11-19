@@ -17,6 +17,7 @@ class Todos extends Component {
 
         updateTodo={this.props.updateTodo}
         deleteTodo={this.props.deleteTodo}
+        submitTodo={this.props.submitTodo}
       />
     ));
   }

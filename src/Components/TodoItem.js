@@ -28,18 +28,19 @@ export class TodoItem extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+    console.log(this.props.todo);
     //pass title up through state
-    this.props.updateTodo.bind(this, this.props.todo._id);
+    this.props.submitTodo();
   };
 
-  // onChange = e =>
-  //   this.setState({
-  //     [e.target.title]: e.target.value
-  //   });
+  changeHandler = () => {
+    console.log('change');
+    this.props.updateTodo.bind(this, this.props.todo);
+  };
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.props.submitTodo.bind(this, this.props.todo)}>
         <List>
           <ListItem
             style={this.getStyle()}
@@ -52,10 +53,7 @@ export class TodoItem extends Component {
               checked={this.checked()}
               //toggleComplete will be picked up by toDos.js
               // bind allows us to send up the id to the top of the tree
-              onChange={this.props.toggleComplete.bind(
-                this,
-                this.props.todo._id
-              )}
+              onChange={this.props.toggleComplete.bind(this, this.props.todo)}
             />
             <Input
               disabled={this.checked()}
@@ -65,7 +63,7 @@ export class TodoItem extends Component {
               // className={classes.textField}
               type='text'
               margin='normal'
-              onBlur={this.props.updateTodo.bind(this, this.props.todo)}
+              onChange={this.changeHandler}
             />
             {/* <Button variant='contained'>Submit</Button> */}
 
@@ -74,7 +72,7 @@ export class TodoItem extends Component {
             {/* props.todo is coming from map function in todos.js */}
             {/* <ListItemText primary={this.props.todo.title} /> */}
             <ListItemSecondaryAction
-              onClick={this.props.deleteTodo.bind(this, this.props.todo.id)}
+              onClick={this.props.deleteTodo.bind(this, this.props.todo._id)}
             >
               <IconButton aria-label='Comments'>
                 <DeleteIcon />
