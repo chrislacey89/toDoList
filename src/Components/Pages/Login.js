@@ -51,6 +51,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const onSubmit = e => {
+  e.preventDefault();
+  //pass title up through state
+  // this.props.addTodo(this.state.title);
+  console.log('hello');
+};
+
 export default function Login() {
   const classes = useStyles();
 
@@ -62,9 +69,9 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Sign in
+          Sign Up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={onSubmit}>
           <TextField
             variant='outlined'
             margin='normal'
@@ -87,10 +94,18 @@ export default function Login() {
             id='password'
             autoComplete='current-password'
           />
-          <FormControlLabel
-            control={<Checkbox value='remember' color='primary' />}
-            label='Remember me'
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            name='confirmPassword'
+            label='Confirm Password'
+            type='password'
+            id='passwconfirmPasswordord'
+            autoComplete='current-password'
           />
+
           <Button
             type='submit'
             fullWidth
@@ -98,20 +113,8 @@ export default function Login() {
             color='primary'
             className={classes.submit}
           >
-            Sign In
+            Sign Up
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href='#' variant='body2'>
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href='#' variant='body2'>
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={8}>
