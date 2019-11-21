@@ -32,9 +32,9 @@ function Header() {
                 About
               </Button>
             </Link>
-            <Link component={RouterLink} to='/login'>
+            <Link component={RouterLink} to='/signup'>
               <Button color='white' className={classes.container}>
-                Login
+                Sign Up
               </Button>
             </Link>
           </Grid>

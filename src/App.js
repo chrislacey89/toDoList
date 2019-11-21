@@ -9,7 +9,7 @@ import Header from './Components/Header';
 import Todos from './Components/Todos';
 import AddtoDo from './Components/AddTodo';
 import About from './Components/Pages/About';
-import Login from './Components/Pages/Login';
+import Signup from './Components/Pages/Signup';
 
 // import uuid from 'uuid';
 import axios from 'axios';
@@ -38,7 +38,6 @@ class App extends Component {
         res => this.setState({ todos: [...this.state.todos, res.data.todo] }),
         console.log(
           this.state.todos.map(todo => {
-            let arrLength = todo.length;
             let realID = todo._id;
             return realID;
           })
@@ -62,7 +61,7 @@ class App extends Component {
         if (todo._id === res._id) {
           todo.title = this.element.value;
 
-          // passedTitle = todo.title;
+          passedTitle = todo.title;
 
           console.log(`Current Title: ${todo.title}`);
         }
@@ -163,7 +162,7 @@ class App extends Component {
             )}
           />
           <Route path='/about' component={About} />
-          <Route path='/login' component={Login} />
+          <Route path='/signup' component={Signup} />
         </div>
       </Router>
     );
