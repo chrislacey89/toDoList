@@ -10,6 +10,7 @@ import Todos from './Components/Todos';
 import AddtoDo from './Components/AddTodo';
 import About from './Components/Pages/About';
 import Signup from './Components/Pages/Signup';
+import Login from './Components/Pages/Login';
 
 // import uuid from 'uuid';
 import axios from 'axios';
@@ -162,6 +163,7 @@ class App extends Component {
             )}
           />
           <Route path='/about' component={About} />
+          <Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
         </div>
       </Router>

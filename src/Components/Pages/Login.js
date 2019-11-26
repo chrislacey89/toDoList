@@ -3,16 +3,15 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Modal from '../../Components/Modal';
 
 import axios from 'axios';
 
@@ -54,47 +53,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-class Signup extends Component {
-  state = {
-    signupForm: {
-      email: {
-        value: '',
-        valid: false,
-        touched: false
-        // validators: [required, email]
-      },
-      password: {
-        value: '',
-        valid: false,
-        touched: false
-        // validators: [required, length({ min: 5 })]
-      },
-      name: {
-        value: '',
-        valid: false,
-        touched: false
-        // validators: [required]
-      },
-      error: true
-    }
-  };
+class Login extends Component {
+  state = {};
   onSubmit = e => {
     e.preventDefault();
-    //pass title up .through state
+    //pass title up through state
+    // console.log(e);
 
     const email = this.state.email;
     const name = this.state.name;
     const password = this.state.password;
 
-    axios
-      .post(`http://localhost:5000/api/todos/signup`, {
-        email: email,
-        name: name,
-        password: password
-      })
-      .catch(err => {
-        console.log(err.response);
-      });
+    axios.post(`http://localhost:5000/api/todos/login`, {
+      email: email,
+      name: name,
+      password: password
+    });
   };
 
   inputChangeHandler = e => {
@@ -117,24 +91,16 @@ class Signup extends Component {
     // });
   };
 
-  closeModal = () => {
-    this.setState({ error: false });
-  };
-
   render() {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <div>
-          <Modal
-            openModal={this.state.signupForm.error}
-            closeModal={this.closeModal}
-          />
           <Avatar>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h1' variant='h5'>
-            Sign Up
+            Login
           </Typography>
           <form noValidate onSubmit={this.onSubmit}>
             <TextField
@@ -153,22 +119,7 @@ class Signup extends Component {
               // valid={this.state.signupForm['email'].valid}
               // touched={this.state.signupForm['email'].touched}
             />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              name='name'
-              label='Your Name'
-              type='text'
-              id='name'
-              autoComplete='current-password'
-              onChange={this.inputChangeHandler}
-              onBlur={this.inputBlurHandler.bind(this, 'name')}
-              // value={this.state.signupForm['name'].value}
-              // valid={this.state.signupForm['name'].valid}
-              // touched={this.state.signupForm['name'].touched}
-            />
+
             <TextField
               variant='outlined'
               margin='normal'
@@ -193,7 +144,7 @@ class Signup extends Component {
               color='primary'
               loading={this.props.loading}
             >
-              > Sign Up
+              > Login
             </Button>
           </form>
         </div>
@@ -205,4 +156,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default Login;
