@@ -103,22 +103,29 @@ class Signup extends Component {
     });
   };
 
-  inputBlurHandler = input => {
-    // this.setState(prevState => {
-    //   return {
-    //     signupForm: {
-    //       ...prevState.signupForm,
-    //       [input]: {
-    //         ...prevState.signupForm[input],
-    //         touched: true
-    //       }
-    //     }
-    //   };
-    // });
-  };
+  // inputBlurHandler = input => {
+  //   this.setState(prevState => {
+  //     return {
+  //       signupForm: {
+  //         ...prevState.signupForm,
+  //         [input]: {
+  //           ...prevState.signupForm[input],
+  //           touched: true
+  //         }
+  //       }
+  //     };
+  //   });
+  // };
 
   closeModal = () => {
-    this.setState({ error: false });
+    this.setState(prevState => {
+      return {
+        signupForm: {
+          ...prevState.signupForm,
+          error: false
+        }
+      };
+    });
   };
 
   render() {
