@@ -29,7 +29,7 @@ function Modal(props) {
       >
         <DialogContent>
           <DialogContentText id='alert-dialog-slide-description'>
-            The email address you entered already exists!
+            {props.errorMessage}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

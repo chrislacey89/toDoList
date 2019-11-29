@@ -75,7 +75,8 @@ class Signup extends Component {
         touched: false
         // validators: [required]
       },
-      error: true
+      error: false,
+      errorStatus: null
     }
   };
   onSubmit = e => {
@@ -93,7 +94,21 @@ class Signup extends Component {
         password: password
       })
       .catch(err => {
+        const ErrorStatus = err.response.status;
         console.log(err.response);
+        // const EmailErrorMessage = err.response.data.data[0].msg;
+        if (ErrorStatus === 422) {
+          this.setState(prevState => {
+            return {
+              signupForm: {
+                ...prevState.signupForm,
+                error: true,
+                errorStatus: 422
+              }
+            };
+          });
+          console.log(this.state.signupForm);
+        }
       });
   };
 
@@ -103,29 +118,36 @@ class Signup extends Component {
     });
   };
 
-  // inputBlurHandler = input => {
-  //   this.setState(prevState => {
-  //     return {
-  //       signupForm: {
-  //         ...prevState.signupForm,
-  //         [input]: {
-  //           ...prevState.signupForm[input],
-  //           touched: true
-  //         }
-  //       }
-  //     };
-  //   });
-  // };
+  inputBlurHandler = input => {
+    this.setState(prevState => {
+      return {
+        signupForm: {
+          ...prevState.signupForm,
+          [input]: {
+            ...prevState.signupForm[input],
+            touched: true
+          }
+        }
+      };
+    });
+  };
 
   closeModal = () => {
     this.setState(prevState => {
       return {
         signupForm: {
           ...prevState.signupForm,
-          error: false
+          error: false,
+          errorStatus: null
         }
       };
     });
+  };
+
+  errorMessage = () => {
+    if (this.state.signupForm.errorStatus === 422) {
+      return 'Please enter a valid email.';
+    }
   };
 
   render() {
@@ -136,6 +158,7 @@ class Signup extends Component {
           <Modal
             openModal={this.state.signupForm.error}
             closeModal={this.closeModal}
+            errorMessage={this.errorMessage()}
           />
           <Avatar>
             <LockOutlinedIcon />
