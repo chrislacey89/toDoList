@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Modal from '../../Components/Modal';
+import { Redirect } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -76,7 +77,8 @@ class Signup extends Component {
         // validators: [required]
       },
       error: false,
-      errorStatus: null
+      resStatus: null,
+      loggedIn: false
     }
   };
   onSubmit = e => {
@@ -93,21 +95,35 @@ class Signup extends Component {
         name: name,
         password: password
       })
-      .catch(err => {
-        const ErrorStatus = err.response.status;
-        console.log(err.response);
-        // const EmailErrorMessage = err.response.data.data[0].msg;
-        if (ErrorStatus === 422) {
+      .then(res => {
+        let resSuccess = res.status;
+        console.log(res);
+        if (resSuccess === 201) {
           this.setState(prevState => {
             return {
               signupForm: {
                 ...prevState.signupForm,
                 error: true,
-                errorStatus: 422
+                resStatus: resSuccess
               }
             };
           });
-          console.log(this.state.signupForm);
+        }
+      })
+      .catch(err => {
+        let ErrorStatus = err.response.status;
+        console.log(err.response);
+        // const EmailErrorMessage = err.response.data.data[0].msg;
+        if (ErrorStatus) {
+          this.setState(prevState => {
+            return {
+              signupForm: {
+                ...prevState.signupForm,
+                error: true,
+                resStatus: ErrorStatus
+              }
+            };
+          });
         }
       });
   };
@@ -138,19 +154,32 @@ class Signup extends Component {
         signupForm: {
           ...prevState.signupForm,
           error: false,
-          errorStatus: null
+          resStatus: null
         }
       };
     });
   };
 
   errorMessage = () => {
-    if (this.state.signupForm.errorStatus === 422) {
+    let errorStatus = this.state.signupForm.resStatus;
+    if (errorStatus === 422) {
       return 'Please enter a valid email.';
+    } else if (errorStatus === 423) {
+      return 'Email address already exists. Please enter a new one.';
+    } else if (errorStatus === 424) {
+      return 'Password must be greater than 5 characters';
+    } else if (errorStatus === 425) {
+      return 'Please enter your name.';
+    } else if (errorStatus === 201) {
+      return 'Sign up Successful!';
     }
   };
 
   render() {
+    if (this.state.signupForm.resStatus === 201) {
+      return <Redirect to='/' />;
+    }
+
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
