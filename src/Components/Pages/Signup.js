@@ -90,7 +90,7 @@ class Signup extends Component {
     const password = this.state.password;
 
     axios
-      .post(`http://localhost:5000/api/todos/signup`, {
+      .post(`http://localhost:5000/api/auth/signup`, {
         email: email,
         name: name,
         password: password

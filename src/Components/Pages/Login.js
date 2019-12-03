@@ -54,21 +54,66 @@ const useStyles = makeStyles(theme => ({
 }));
 
 class Login extends Component {
-  state = {};
-  onSubmit = e => {
+  state = {
+    signupForm: {
+      email: {
+        value: '',
+        valid: false
+      },
+      password: {
+        value: '',
+        valid: false
+      },
+
+      error: false,
+      resStatus: null,
+      loggedIn: false
+    }
+  };
+  onSubmit = (e, authData) => {
     e.preventDefault();
-    //pass title up through state
-    // console.log(e);
+    //pass title up .through state
 
     const email = this.state.email;
-    const name = this.state.name;
     const password = this.state.password;
+    axios
+      .post(`http://localhost:5000/api/auth/login`, {
+        email: email,
+        password: password
+      })
+      .then(res => {
+        console.log(res);
 
-    axios.post(`http://localhost:5000/api/todos/login`, {
-      email: email,
-      name: name,
-      password: password
-    });
+        let resSuccess = res.status;
+        if (resSuccess === 201) {
+          this.setState(prevState => {
+            return {
+              signupForm: {
+                ...prevState.signupForm,
+                error: true,
+                resStatus: resSuccess
+              }
+            };
+          });
+        }
+      })
+
+      .catch(err => {
+        // let ErrorStatus = err.response.status;
+        console.log(err.response);
+        // const EmailErrorMessage = err.response.data.data[0].msg;
+        // if (ErrorStatus) {
+        //   this.setState(prevState => {
+        //     return {
+        //       signupForm: {
+        //         ...prevState.signupForm,
+        //         error: true,
+        //         resStatus: ErrorStatus
+        //       }
+        //     };
+        //   });
+        // }
+      });
   };
 
   inputChangeHandler = e => {
