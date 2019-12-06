@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -23,7 +23,9 @@ class App extends Component {
   //Get info from backend then update state
   componentDidMount() {
     axios
-      .get('http://localhost:5000/api/todos/')
+      .get('http://localhost:5000/api/todos/', {
+        headers: { Authorization: 'Bearer' + this.props.token }
+      })
       // .then(res => console.log(res.data.todos));
 
       .then(res => this.setState({ todos: res.data.todos }));
@@ -139,6 +141,9 @@ class App extends Component {
       // }
     );
   };
+  getToken = () => {
+    return 'Hello';
+  };
 
   render() {
     return (
@@ -163,7 +168,11 @@ class App extends Component {
             )}
           />
           <Route path='/about' component={About} />
-          <Route path='/login' component={Login} />
+
+          <Route
+            path='/login'
+            render={props => <Login {...props} token={this.getToken} />}
+          />
           <Route path='/signup' component={Signup} />
         </div>
       </Router>

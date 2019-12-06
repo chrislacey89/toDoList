@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
 
 class Login extends Component {
   state = {
-    signupForm: {
+    loginForm: {
       email: {
         value: '',
         valid: false
@@ -67,9 +67,12 @@ class Login extends Component {
 
       error: false,
       resStatus: null,
-      loggedIn: false
+      loggedIn: false,
+      token: null
     }
   };
+
+  //todo: move onsubmit to app.js
   onSubmit = (e, authData) => {
     e.preventDefault();
     //pass title up .through state
@@ -82,16 +85,18 @@ class Login extends Component {
         password: password
       })
       .then(res => {
+        //can get token from res.data
         console.log(res);
 
         let resSuccess = res.status;
-        if (resSuccess === 201) {
+        if (resSuccess === 200) {
           this.setState(prevState => {
             return {
-              signupForm: {
-                ...prevState.signupForm,
-                error: true,
-                resStatus: resSuccess
+              loginForm: {
+                ...prevState.loginForm,
+                error: false,
+                resStatus: resSuccess,
+                token: res.data.token
               }
             };
           });
@@ -147,7 +152,7 @@ class Login extends Component {
           <Typography component='h1' variant='h5'>
             Login
           </Typography>
-          <form noValidate onSubmit={this.onSubmit}>
+          <form noValidate onSubmit={this.onSubmit} token={'hello'}>
             <TextField
               variant='outlined'
               margin='normal'
