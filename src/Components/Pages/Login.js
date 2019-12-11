@@ -67,8 +67,8 @@ class Login extends Component {
 
       error: false,
       resStatus: null,
-      loggedIn: false,
-      token: null
+      loggedIn: false
+      // token: null
     }
   };
 
@@ -152,7 +152,7 @@ class Login extends Component {
           <Typography component='h1' variant='h5'>
             Login
           </Typography>
-          <form noValidate onSubmit={this.onSubmit} token={'hello'}>
+          <form noValidate onSubmit={this.onSubmit}>
             <TextField
               variant='outlined'
               margin='normal'

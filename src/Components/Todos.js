@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
 import uuid from 'uuid';
+import { connect } from 'react-redux';
+import { fetchPosts } from '../Actions/postActions';
 // import PropTypes from 'prop-types';
 
 class Todos extends Component {
+  componentDidMount() {
+    this.props.fetchPosts();
+  }
   render() {
     //  props.todos comes from from App.js. The Props is set there
     return this.props.todos.map(todo => (
       <TodoItem
         key={uuid.v4()}
+        todos={this.props}
         // pass on everything from the state in app.js
         todo={todo}
         //sends id selected data to App.js
@@ -29,4 +35,10 @@ class Todos extends Component {
 //   delTodo: PropTypes.func.isRequired
 // };
 
-export default Todos;
+const mapStateToProps = state => ({
+  todos: state.posts.todos
+});
+
+// const mapStateToProps = state => ({ todos: state.todos });
+
+export default connect(mapStateToProps, { fetchPosts })(Todos);
