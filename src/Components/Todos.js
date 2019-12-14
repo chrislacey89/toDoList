@@ -9,8 +9,17 @@ class Todos extends Component {
   componentDidMount() {
     this.props.fetchPosts();
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.newPost) {
+      this.props.posts.push(nextProps.newPost);
+      console.log(nextProps);
+    }
+  }
+
   render() {
     //  props.todos comes from from App.js. The Props is set there
+    console.log(this.props.todos);
     return this.props.todos.map(todo => (
       <TodoItem
         key={uuid.v4()}
@@ -37,6 +46,7 @@ class Todos extends Component {
 
 const mapStateToProps = state => ({
   todos: state.posts.todos
+  // newTodo: [...state.posts.todos, state.posts.todo]
 });
 
 // const mapStateToProps = state => ({ todos: state.todos });

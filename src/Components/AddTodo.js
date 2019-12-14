@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createPost } from '../Actions/postActions';
 // import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
@@ -14,9 +16,15 @@ export class AddTodo extends Component {
   onSubmit = e => {
     e.preventDefault();
     //pass title up through state
-    this.props.addTodo(this.state.title);
+    const post = {
+      title: this.state.title,
+      body: this.state.body
+    };
+
+    this.props.createPost(post);
+
     //set title back to nothing
-    this.setState({ title: '' });
+    // this.setState({ title: '' });
   };
 
   onChange = e =>
@@ -54,4 +62,4 @@ export class AddTodo extends Component {
 //   addTodo: PropTypes.func.isRequired
 // };
 
-export default AddTodo;
+export default connect(null, { createPost })(AddTodo);
