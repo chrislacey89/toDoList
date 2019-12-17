@@ -23,35 +23,6 @@ class App extends Component {
     todos: []
   };
 
-  //Get info from backend then update state
-  // componentDidMount() {
-  //   axios
-  //     .get('http://localhost:5000/api/todos/', {
-  //       // headers: { Authorization: 'Bearer' + this.props.token }
-  //     })
-  //     // .then(res => console.log(res.data.todos));
-
-  //     .then(res => this.setState({ todos: res.data.todos }));
-  // }
-
-  addTodo = title => {
-    axios
-      .post(`http://localhost:5000/api/todos/`, {
-        title: title,
-        completed: false
-      })
-      .then(
-        res => this.setState({ todos: [...this.state.todos, res.data.todo] }),
-        console.log(
-          this.state.todos.map(todo => {
-            let realID = todo._id;
-            return realID;
-          })
-        )
-        // console.log(this.state.todos.lastIndexOf('_id'))
-      );
-  };
-
   // submitTodo
   submitTodo = (res, e) => {
     e.preventDefault();
@@ -167,7 +138,7 @@ class App extends Component {
                     updateTodo={this.updateTodo}
                     submitTodo={this.submitTodo}
                   />
-                  <AddtoDo addTodo={this.addTodo} />
+                  <AddtoDo />
                 </React.Fragment>
               )}
             />

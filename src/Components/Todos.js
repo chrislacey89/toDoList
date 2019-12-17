@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TodoItem from './TodoItem';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../Actions/postActions';
+import { fetchPosts, deletePost } from '../Actions/postActions';
 // import PropTypes from 'prop-types';
 
 class Todos extends Component {
@@ -37,18 +37,9 @@ class Todos extends Component {
     ));
   }
 }
-// // PropTypes
-// Todos.propTypes = {
-//   todos: PropTypes.array.isRequired,
-//   markComplete: PropTypes.func.isRequired,
-//   delTodo: PropTypes.func.isRequired
-// };
 
 const mapStateToProps = state => ({
   todos: state.posts.todos
-  // newTodo: [...state.posts.todos, state.posts.todo]
 });
-
-// const mapStateToProps = state => ({ todos: state.todos });
 
 export default connect(mapStateToProps, { fetchPosts })(Todos);

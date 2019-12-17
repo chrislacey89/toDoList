@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { deletePost } from '../Actions/postActions';
 // import PropTypes from 'prop-types';
 
 import List from '@material-ui/core/List';
@@ -31,6 +33,12 @@ export class TodoItem extends Component {
     console.log(this.props.todo);
     //pass title up through state
     this.props.submitTodo();
+  };
+
+  onClick = () => {
+    const todoId = this.props.todo._id;
+    console.log(todoId);
+    this.props.deletePost(todoId);
   };
 
   changeHandler = () => {
@@ -72,7 +80,8 @@ export class TodoItem extends Component {
             {/* props.todo is coming from map function in todos.js */}
             {/* <ListItemText primary={this.props.todo.title} /> */}
             <ListItemSecondaryAction
-              onClick={this.props.deleteTodo.bind(this, this.props.todo._id)}
+              // onClick={this.props.deleteTodo.bind(this, this.props.todo._id)}
+              onClick={this.onClick}
             >
               <IconButton aria-label='Comments'>
                 <DeleteIcon />
@@ -91,4 +100,4 @@ export class TodoItem extends Component {
 //   delTodo: PropTypes.func.isRequired
 // };
 
-export default TodoItem;
+export default connect(null, { deletePost })(TodoItem);

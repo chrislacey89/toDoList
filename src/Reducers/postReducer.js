@@ -1,4 +1,4 @@
-import { FETCH_POSTS, NEW_POST } from '../Actions/types';
+import { FETCH_POSTS, NEW_POST, DELETE_POST } from '../Actions/types';
 import { updateObject } from '../utility';
 
 // import { updateObject } from '../utility';
@@ -9,23 +9,24 @@ const initialState = {
 
 const addTodo = (state, action) => {
   const updatedTodos = [...state.todos, action.payload];
-
   const updatedState = {
     todos: updatedTodos
   };
   return updatedState;
 };
 
-// .then(
-//   res => this.setState({ todos: [...this.state.todos, res.data.todo] }),
-//   console.log(
-//     this.state.todos.map(todo => {
-//       let realID = todo._id;
-//       return realID;
-//     })
-//   )
-//   // console.log(this.state.todos.lastIndexOf('_id'))
-// );
+const deleteTodo = (state, action) => {
+  console.log('reducer');
+  const stateClone = [...state.todos];
+  console.log(stateClone);
+  const filteredState = stateClone.filter(todo => todo._id !== action.payload);
+  console.log(filteredState);
+
+  const updatedState = {
+    todos: filteredState
+  };
+  return updatedState;
+};
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -37,6 +38,8 @@ export default function(state = initialState, action) {
       };
     case NEW_POST:
       return addTodo(state, action);
+    case DELETE_POST:
+      return deleteTodo(state, action);
 
     default:
       return state;
