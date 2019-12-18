@@ -1,4 +1,4 @@
-import { FETCH_POSTS, NEW_POST, DELETE_POST } from './types';
+import { FETCH_POSTS, NEW_POST, DELETE_POST, TOGGLE_COMPLETE } from './types';
 import axios from 'axios';
 
 export const fetchPosts = () => dispatch => {
@@ -39,6 +39,24 @@ export const deletePost = id => dispatch => {
       dispatch({
         type: DELETE_POST,
         payload: id
+      })
+    )
+    .then(res => console.log('this is the res', res));
+};
+
+export const toggleComplete = todoItem => dispatch => {
+  console.log('toggle action called');
+  console.log(todoItem);
+  const todoId = todoItem._id;
+  const todoCompleted = todoItem.completed;
+  axios
+    .put(`http://localhost:5000/api/todos/${todoId}`, {
+      completed: !todoCompleted
+    })
+    .then(res =>
+      dispatch({
+        type: TOGGLE_COMPLETE,
+        payload: todoId
       })
     )
     .then(res => console.log('this is the res', res));

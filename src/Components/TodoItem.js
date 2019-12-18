@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deletePost } from '../Actions/postActions';
+import { deletePost, toggleComplete } from '../Actions/postActions';
 // import PropTypes from 'prop-types';
 
 import List from '@material-ui/core/List';
@@ -26,6 +26,14 @@ export class TodoItem extends Component {
     if (this.props.todo.completed === true) {
       return true;
     }
+  };
+
+  toggleComplete = () => {
+    console.log('ggot');
+    const todoItem = this.props.todo;
+    this.props.toggleComplete(todoItem);
+
+    // this.props.toggleComplete()
   };
 
   onSubmit = e => {
@@ -61,7 +69,7 @@ export class TodoItem extends Component {
               checked={this.checked()}
               //toggleComplete will be picked up by toDos.js
               // bind allows us to send up the id to the top of the tree
-              onChange={this.props.toggleComplete.bind(this, this.props.todo)}
+              onChange={this.toggleComplete}
             />
             <Input
               disabled={this.checked()}
@@ -100,4 +108,4 @@ export class TodoItem extends Component {
 //   delTodo: PropTypes.func.isRequired
 // };
 
-export default connect(null, { deletePost })(TodoItem);
+export default connect(null, { deletePost, toggleComplete })(TodoItem);
