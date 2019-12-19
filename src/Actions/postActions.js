@@ -1,17 +1,20 @@
-import { FETCH_POSTS, NEW_POST, DELETE_POST, TOGGLE_COMPLETE } from './types';
+import {
+  FETCH_POSTS,
+  NEW_POST,
+  DELETE_POST,
+  TOGGLE_COMPLETE,
+  UPDATE_POST
+} from './types';
 import axios from 'axios';
 
 export const fetchPosts = () => dispatch => {
   console.log('fetching');
-  axios
-    .get('http://localhost:5000/api/todos/')
-    .then(res =>
-      dispatch({
-        type: FETCH_POSTS,
-        payload: res.data.todos
-      })
-    )
-    .then(res => console.log(res.data));
+  axios.get('http://localhost:5000/api/todos/').then(res =>
+    dispatch({
+      type: FETCH_POSTS,
+      payload: res.data.todos
+    })
+  );
 };
 
 export const createPost = postData => dispatch => {
@@ -60,4 +63,13 @@ export const toggleComplete = todoItem => dispatch => {
       })
     )
     .then(res => console.log('this is the res', res));
+};
+
+export const updateTodo = (todoId, todoTitle) => dispatch => {
+  if (todoTitle !== null) {
+    console.log('not null!');
+    axios.put(`http://localhost:5000/api/todos/${todoId}`, {
+      title: todoTitle
+    });
+  } else console.log('No new value passed');
 };

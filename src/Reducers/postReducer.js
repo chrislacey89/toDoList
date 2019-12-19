@@ -2,7 +2,8 @@ import {
   FETCH_POSTS,
   NEW_POST,
   DELETE_POST,
-  TOGGLE_COMPLETE
+  TOGGLE_COMPLETE,
+  UPDATE_POST
 } from '../Actions/types';
 import { updateObject } from '../utility';
 
@@ -33,17 +34,6 @@ const deleteTodo = (state, action) => {
   return updatedState;
 };
 
-// this.setState({
-//   todos: this.state.todos.map(todo => {
-//     // if the todo is = to the id that is passed into the function, then set it to the opposite
-//     if (todo._id === res._id) {
-//       todo.completed = !todo.completed;
-//       passedCompleted = todo.completed;
-//     }
-//     return todo;
-//   })
-// });
-
 const toggleComplete = (state, action) => {
   console.log('toggle reducer');
   const stateClone = [...state.todos];
@@ -61,6 +51,23 @@ const toggleComplete = (state, action) => {
   return updatedState;
 };
 
+const updateTodo = (state, action) => {
+  console.log('toggle updateTodo');
+  const stateClone = [...state.todos];
+  // const toggleComplete = stateClone.map(todo => {
+  //   if (todo._id === action.payload) {
+  //     todo.completed = !todo.completed;
+  //   }
+  //   return todo;
+  // });
+  // const updatedState = {
+  //   todos: toggleComplete
+  // };
+  // console.log(updatedState);
+
+  // return updatedState;
+};
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case FETCH_POSTS:
@@ -75,6 +82,8 @@ export default function(state = initialState, action) {
       return deleteTodo(state, action);
     case TOGGLE_COMPLETE:
       return toggleComplete(state, action);
+    case UPDATE_POST:
+      return updateTodo(state, action);
 
     default:
       return state;

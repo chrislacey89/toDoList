@@ -27,12 +27,12 @@ class Todos extends Component {
         // pass on everything from the state in app.js
         todo={todo}
         //sends id selected data to App.js
-        toggleComplete={this.props.toggleComplete}
+        // toggleComplete={this.props.toggleComplete}
         //sends id selected data to App.js
 
         updateTodo={this.props.updateTodo}
-        deleteTodo={this.props.deleteTodo}
-        submitTodo={this.props.submitTodo}
+        // deleteTodo={this.props.deleteTodo}
+        // submitTodo={this.props.submitTodo}
       />
     ));
   }
