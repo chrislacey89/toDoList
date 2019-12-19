@@ -15,16 +15,15 @@ export class AddTodo extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    //pass title up through state
-    const post = {
-      title: this.state.title,
-      body: this.state.body
-    };
 
-    this.props.createPost(post);
+    if (this.state.title !== '') {
+      const post = {
+        title: this.state.title,
+        body: this.state.body
+      };
 
-    //set title back to nothing
-    // this.setState({ title: '' });
+      this.props.createPost(post);
+    }
   };
 
   onChange = e =>

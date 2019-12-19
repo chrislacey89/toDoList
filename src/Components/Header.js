@@ -15,7 +15,11 @@ function Header() {
         <Toolbar>
           <Grid container direction='row' justify='left' alignItems='center'>
             <Link component={RouterLink} to='/' underline='none'>
-              <Typography variant='h6' className={classes.centerAlign}>
+              <Typography
+                variant='h6'
+                className={classes.centerAlign}
+                color='textSecondary'
+              >
                 To Do List
               </Typography>{' '}
             </Link>
