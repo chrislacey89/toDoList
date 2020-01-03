@@ -53,7 +53,8 @@ class Signup extends Component {
         valid: false
         // touched: false
         // validators: [required]
-      }
+      },
+      resData: null
       // error: false,
       // resStatus: null,
       // loggedIn: false,
@@ -245,4 +246,8 @@ class Signup extends Component {
   }
 }
 
-export default connect(null, { signup })(Signup);
+const mapStateToProps = state => ({
+  resData: state.authSettings
+});
+
+export default connect(mapStateToProps, { signup })(Signup);

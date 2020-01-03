@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
 
 import './App.css';
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,8 +14,6 @@ import Login from './Components/Pages/Login';
 
 // import uuid from 'uuid';
 import axios from 'axios';
-
-import store from './Store/store';
 
 class App extends Component {
   state = {
@@ -121,37 +118,35 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={store}>
-        <Router>
-          <div>
-            <Header />
-            <Route
-              exact
-              path='/'
-              render={props => (
-                <React.Fragment>
-                  {/* gets selected Id data from Todos.js*/}
-                  <Todos
-                    todos={this.state.todos}
-                    toggleComplete={this.toggleComplete}
-                    deleteTodo={this.deleteTodo}
-                    updateTodo={this.updateTodo}
-                    submitTodo={this.submitTodo}
-                  />
-                  <AddtoDo />
-                </React.Fragment>
-              )}
-            />
-            <Route path='/about' component={About} />
+      <Router>
+        <div>
+          <Header />
+          <Route
+            exact
+            path='/'
+            render={props => (
+              <React.Fragment>
+                {/* gets selected Id data from Todos.js*/}
+                <Todos
+                  todos={this.state.todos}
+                  toggleComplete={this.toggleComplete}
+                  deleteTodo={this.deleteTodo}
+                  updateTodo={this.updateTodo}
+                  submitTodo={this.submitTodo}
+                />
+                <AddtoDo />
+              </React.Fragment>
+            )}
+          />
+          <Route path='/about' component={About} />
 
-            <Route
-              path='/login'
-              render={props => <Login {...props} token={this.getToken} />}
-            />
-            <Route path='/signup' component={Signup} />
-          </div>
-        </Router>
-      </Provider>
+          <Route
+            path='/login'
+            render={props => <Login {...props} token={this.getToken} />}
+          />
+          <Route path='/signup' component={Signup} />
+        </div>
+      </Router>
     );
   }
 }

@@ -15,8 +15,6 @@ const login = (state, action) => {};
 
 const signup = (state, action) => {
   console.log('sign up reducer');
-  console.log(action.payload);
-  console.log(state);
   return updateObject(state, {
     resStatus: action.payload.status
   });
