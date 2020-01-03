@@ -3,6 +3,7 @@ import TodoItem from './TodoItem';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 import { fetchPosts, deletePost } from '../Actions/postActions';
+import Modal from '../Components/Modal';
 // import PropTypes from 'prop-types';
 
 class Todos extends Component {

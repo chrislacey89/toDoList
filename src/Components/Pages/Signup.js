@@ -15,6 +15,9 @@ import Container from '@material-ui/core/Container';
 import Modal from '../../Components/Modal';
 import { Redirect } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import { signup } from '../../Actions/authActions';
+
 import axios from 'axios';
 
 function Copyright() {
@@ -30,102 +33,80 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}));
-
 class Signup extends Component {
   state = {
     signupForm: {
       email: {
         value: '',
-        valid: false,
-        touched: false
+        valid: false
+        // touched: false
         // validators: [required, email]
       },
       password: {
         value: '',
-        valid: false,
-        touched: false
+        valid: false
+        // touched: false
         // validators: [required, length({ min: 5 })]
       },
       name: {
         value: '',
-        valid: false,
-        touched: false
+        valid: false
+        // touched: false
         // validators: [required]
-      },
-      error: false,
-      resStatus: null,
-      loggedIn: false
+      }
+      // error: false,
+      // resStatus: null,
+      // loggedIn: false,
+      // token: null
     }
   };
   onSubmit = e => {
     e.preventDefault();
     //pass title up .through state
-
+    const userData = this.state;
     const email = this.state.email;
     const name = this.state.name;
     const password = this.state.password;
 
-    axios
-      .post(`http://localhost:5000/api/auth/signup`, {
-        email: email,
-        name: name,
-        password: password
-      })
-      .then(res => {
-        let resSuccess = res.status;
-        console.log(res);
-        if (resSuccess === 201) {
-          this.setState(prevState => {
-            return {
-              signupForm: {
-                ...prevState.signupForm,
-                error: true,
-                resStatus: resSuccess
-              }
-            };
-          });
-        }
-      })
-      .catch(err => {
-        let ErrorStatus = err.response.status;
-        console.log(err.response);
-        // const EmailErrorMessage = err.response.data.data[0].msg;
-        if (ErrorStatus) {
-          this.setState(prevState => {
-            return {
-              signupForm: {
-                ...prevState.signupForm,
-                error: true,
-                resStatus: ErrorStatus
-              }
-            };
-          });
-        }
-      });
+    this.props.signup(email, name, password, userData);
+
+    // axios
+    //   .post(`http://localhost:5000/api/auth/signup`, {
+    //     email: email,
+    //     name: name,
+    //     password: password
+    //   })
+    //   .then(res => {
+    //     let resSuccess = res.status;
+    //     console.log(res);
+    //     if (resSuccess === 201) {
+    //       this.setState(prevState => {
+    //         return {
+    //           signupForm: {
+    //             ...prevState.signupForm,
+    //             error: true,
+    //             resStatus: resSuccess
+    //           }
+    //         };
+    //       });
+    //     }
+    //   })
+    //   .catch(err => {
+    //     let ErrorStatus = err.response.status;
+    //     console.log(err.response);
+    //     // const EmailErrorMessage = err.response.data.data[0].msg;
+    //     if (ErrorStatus) {
+    //       this.setState(prevState => {
+    //         return {
+    //           signupForm: {
+    //             ...prevState.signupForm,
+    //             error: true,
+    //             resStatus: ErrorStatus
+    //           }
+    //         };
+    //       });
+    //     }
+    //   });
   };
 
   inputChangeHandler = e => {
@@ -264,4 +245,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default connect(null, { signup })(Signup);

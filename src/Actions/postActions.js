@@ -6,7 +6,7 @@ import {
   UPDATE_POST
 } from './types';
 import axios from 'axios';
-
+//
 export const fetchPosts = () => dispatch => {
   console.log('fetching');
   axios.get('http://localhost:5000/api/todos/').then(res =>
@@ -71,5 +71,11 @@ export const updateTodo = (todoId, todoTitle) => dispatch => {
     axios.put(`http://localhost:5000/api/todos/${todoId}`, {
       title: todoTitle
     });
+    // .then(res =>
+    //   dispatch({
+    //     type: UPDATE_POST,
+    //     payload: todoTitle
+    //   })
+    // );
   } else console.log('No new value passed');
 };

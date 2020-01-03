@@ -52,8 +52,11 @@ const toggleComplete = (state, action) => {
 };
 
 const updateTodo = (state, action) => {
-  console.log('toggle updateTodo');
+  let updateTest = action.payload;
+  console.log('update reducer');
+  console.log(updateTest);
   const stateClone = [...state.todos];
+  console.log(stateClone);
   // const toggleComplete = stateClone.map(todo => {
   //   if (todo._id === action.payload) {
   //     todo.completed = !todo.completed;

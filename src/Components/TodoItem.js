@@ -13,10 +13,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Input } from '@material-ui/core';
+import Modal from '../Components/Modal';
 
 export class TodoItem extends Component {
   state = {
-    title: null
+    title: null,
+    inputError: false
   };
 
   getStyle = () => {
@@ -41,9 +43,26 @@ export class TodoItem extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+
     const todoId = this.props.todo._id;
     const todoTitle = this.state.title;
     this.props.updateTodo(todoId, todoTitle);
+
+    if (todoTitle === '') {
+      this.setState({
+        inputError: true
+      });
+    }
+    console.log(this.state);
+  };
+
+  closeModal = () => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        inputError: false
+      };
+    });
   };
 
   onClick = () => {
@@ -52,35 +71,20 @@ export class TodoItem extends Component {
     this.props.deletePost(todoId);
   };
 
-  updateTodoHandler = () => {
-    const todoId = this.props.todo._id;
-    console.log(todoId);
-    this.props.updateTodo(todoId);
-  };
-
   changeHandler = e => {
     this.setState({
       title: e.target.value
     });
-    // let propClone = [...this.props.todo.title];
-    // let inputValue = e.target.value;
-
-    // let currentProps = this.props.todo.title;
-
-    // currentProps = inputValue;
-    // console.log('current props', currentProps);
-
-    // return currentProps;
-
-    // console.log(e.target.value);
-    // console.log(this.props.todo.title);
   };
-
-  updateTodoHandler = () => {};
 
   render() {
     return (
       <form onSubmit={this.onSubmit}>
+        <Modal
+          openModal={this.state.inputError}
+          closeModal={this.closeModal}
+          errorMessage={'Enter text before updating your Todo Item.'}
+        />
         <List>
           <ListItem
             style={this.getStyle()}
@@ -105,6 +109,7 @@ export class TodoItem extends Component {
               margin='normal'
               onChange={this.changeHandler}
             />
+
             {/* <Button variant='contained'>Submit</Button> */}
 
             {/* <ListItemText primary={this.props.todo.title} /> */}
