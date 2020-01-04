@@ -45,6 +45,21 @@ export const signup = (email, name, password, userData) => dispatch => {
     });
 };
 
-export const login = () => dispatch => {
+export const login = (email, password) => dispatch => {
   console.log('login action');
+
+  axios
+    .post(`http://localhost:5000/api/auth/login`, {
+      email: email,
+      password: password
+    })
+    .then(res =>
+      dispatch({
+        type: LOG_IN,
+        payload: res
+      })
+    )
+    .catch(err => {
+      dispatch(signupFail(err));
+    });
 };

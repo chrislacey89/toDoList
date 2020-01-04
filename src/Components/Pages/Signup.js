@@ -94,15 +94,6 @@ class Signup extends Component {
   };
 
   closeModal = () => {
-    // this.setState(prevState => {
-    //   return {
-    //     signupForm: {
-    //       ...prevState.signupForm,
-    //       error: false,
-    //       resStatus: null
-    //     }
-    //   };
-    // });
     this.props.closeModal();
   };
 

@@ -11,7 +11,12 @@ const initialState = {
   token: null
 };
 
-const login = (state, action) => {};
+const login = (state, action) => {
+  console.log('login in reducer');
+  return updateObject(state, {
+    resStatus: action.payload.status
+  });
+};
 
 const signup = (state, action) => {
   console.log('sign up reducer');
@@ -38,6 +43,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case SIGN_UP:
       return signup(state, action);
+    case LOG_IN:
+      return login(state, action);
     case ERROR:
       return authFail(state, action);
     case CLOSE_MODAL:

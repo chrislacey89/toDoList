@@ -16,6 +16,10 @@ import Modal from '../../Components/Modal';
 
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+import { login, closeModal } from '../../Actions/authActions';
+import { updateObject } from '../../utility';
+
 function Copyright() {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
@@ -74,52 +78,13 @@ class Login extends Component {
   };
 
   //todo: move onsubmit to app.js
-  onSubmit = (e, authData) => {
+  onSubmit = e => {
     e.preventDefault();
-    //pass title up .through state
 
     const email = this.state.email;
     const password = this.state.password;
-    axios
-      .post(`http://localhost:5000/api/auth/login`, {
-        email: email,
-        password: password
-      })
-      .then(res => {
-        //can get token from res.data
-        console.log(res);
 
-        let resSuccess = res.status;
-        if (resSuccess === 200) {
-          this.setState(prevState => {
-            return {
-              loginForm: {
-                ...prevState.loginForm,
-                error: false,
-                resStatus: resSuccess,
-                token: res.data.token
-              }
-            };
-          });
-        }
-      })
-
-      .catch(err => {
-        // let ErrorStatus = err.response.status;
-        console.log(err.response);
-        // const EmailErrorMessage = err.response.data.data[0].msg;
-        // if (ErrorStatus) {
-        //   this.setState(prevState => {
-        //     return {
-        //       signupForm: {
-        //         ...prevState.signupForm,
-        //         error: true,
-        //         resStatus: ErrorStatus
-        //       }
-        //     };
-        //   });
-        // }
-      });
+    this.props.login(email, password);
   };
 
   inputChangeHandler = e => {
@@ -142,16 +107,32 @@ class Login extends Component {
     // });
   };
 
+  closeModal = () => {
+    this.props.closeModal();
+  };
+
+  errorMessage = () => {
+    let resStatus = this.props.authSettings.resStatus;
+    if (resStatus === 401) {
+      return 'A user with this email cannot be found.';
+    } else if (resStatus === 402) {
+      return 'Wrong password. Please try again';
+    } else if (resStatus === 200) {
+      return 'Sign up Successful!';
+    }
+  };
+
   render() {
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <div>
-          {/* <Modal
-            openModal={this.state.signupForm.error}
+          <Modal
+            openModal={this.props.authSettings.resStatus !== null ? true : null}
             closeModal={this.closeModal}
             errorMessage={this.errorMessage()}
-          /> */}
+          />
+
           <Avatar>
             <LockOutlinedIcon />
           </Avatar>
@@ -212,4 +193,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  authSettings: state.authSettings
+});
+
+export default connect(mapStateToProps, { login, closeModal })(Login);
