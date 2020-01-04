@@ -56,7 +56,7 @@ export const login = (email, password) => dispatch => {
     .then(res =>
       dispatch({
         type: LOG_IN,
-        payload: res
+        payload: res.data.token
       })
     )
     .catch(err => {

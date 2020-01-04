@@ -13,8 +13,11 @@ const initialState = {
 
 const login = (state, action) => {
   console.log('login in reducer');
+  console.log('TCL: login -> action', action);
+
   return updateObject(state, {
-    resStatus: action.payload.status
+    resStatus: action.payload.status,
+    token: action.payload
   });
 };
 
