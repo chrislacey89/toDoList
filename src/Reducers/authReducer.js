@@ -1,4 +1,4 @@
-import { SIGN_UP, LOG_IN, ERROR } from '../Actions/types';
+import { SIGN_UP, LOG_IN, ERROR, CLOSE_MODAL } from '../Actions/types';
 
 import { updateObject } from '../utility';
 
@@ -27,12 +27,21 @@ const authFail = (state, action) => {
   });
 };
 
+const closeModal = (state, action) => {
+  console.log('close modal reducer');
+  return updateObject(state, {
+    resStatus: null
+  });
+};
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case SIGN_UP:
       return signup(state, action);
     case ERROR:
       return authFail(state, action);
+    case CLOSE_MODAL:
+      return closeModal(state, action);
 
     default:
       return state;

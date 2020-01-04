@@ -1,4 +1,4 @@
-import { SIGN_UP, LOG_IN, ERROR } from './types';
+import { SIGN_UP, LOG_IN, ERROR, CLOSE_MODAL } from './types';
 import axios from 'axios';
 //
 // export const fetchPosts = () => dispatch => {
@@ -15,6 +15,13 @@ export const signupFail = error => {
   return {
     type: ERROR,
     payload: error
+  };
+};
+
+export const closeModal = () => {
+  console.log('close modal action');
+  return {
+    type: CLOSE_MODAL
   };
 };
 

@@ -16,7 +16,8 @@ import Modal from '../../Components/Modal';
 import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { signup } from '../../Actions/authActions';
+import { signup, closeModal } from '../../Actions/authActions';
+import { updateObject } from '../../utility';
 
 import axios from 'axios';
 
@@ -70,44 +71,6 @@ class Signup extends Component {
     const password = this.state.password;
 
     this.props.signup(email, name, password, userData);
-
-    // axios
-    //   .post(`http://localhost:5000/api/auth/signup`, {
-    //     email: email,
-    //     name: name,
-    //     password: password
-    //   })
-    //   .then(res => {
-    //     let resSuccess = res.status;
-    //     console.log(res);
-    //     if (resSuccess === 201) {
-    //       this.setState(prevState => {
-    //         return {
-    //           signupForm: {
-    //             ...prevState.signupForm,
-    //             error: true,
-    //             resStatus: resSuccess
-    //           }
-    //         };
-    //       });
-    //     }
-    //   })
-    //   .catch(err => {
-    //     let ErrorStatus = err.response.status;
-    //     console.log(err.response);
-    //     // const EmailErrorMessage = err.response.data.data[0].msg;
-    //     if (ErrorStatus) {
-    //       this.setState(prevState => {
-    //         return {
-    //           signupForm: {
-    //             ...prevState.signupForm,
-    //             error: true,
-    //             resStatus: ErrorStatus
-    //           }
-    //         };
-    //       });
-    //     }
-    //   });
   };
 
   inputChangeHandler = e => {
@@ -131,28 +94,29 @@ class Signup extends Component {
   };
 
   closeModal = () => {
-    this.setState(prevState => {
-      return {
-        signupForm: {
-          ...prevState.signupForm,
-          error: false,
-          resStatus: null
-        }
-      };
-    });
+    // this.setState(prevState => {
+    //   return {
+    //     signupForm: {
+    //       ...prevState.signupForm,
+    //       error: false,
+    //       resStatus: null
+    //     }
+    //   };
+    // });
+    this.props.closeModal();
   };
 
   errorMessage = () => {
-    let errorStatus = this.state.signupForm.resStatus;
-    if (errorStatus === 422) {
+    let resStatus = this.props.authSettings.resStatus;
+    if (resStatus === 422) {
       return 'Please enter a valid email.';
-    } else if (errorStatus === 423) {
+    } else if (resStatus === 423) {
       return 'Email address already exists. Please enter a new one.';
-    } else if (errorStatus === 424) {
+    } else if (resStatus === 424) {
       return 'Password must be greater than 5 characters';
-    } else if (errorStatus === 425) {
+    } else if (resStatus === 425) {
       return 'Please enter your name.';
-    } else if (errorStatus === 201) {
+    } else if (resStatus === 201) {
       return 'Sign up Successful!';
     }
   };
@@ -167,7 +131,7 @@ class Signup extends Component {
         <CssBaseline />
         <div>
           <Modal
-            openModal={this.state.signupForm.error}
+            openModal={this.props.authSettings.resStatus !== null ? true : null}
             closeModal={this.closeModal}
             errorMessage={this.errorMessage()}
           />
@@ -247,7 +211,7 @@ class Signup extends Component {
 }
 
 const mapStateToProps = state => ({
-  resData: state.authSettings
+  authSettings: state.authSettings
 });
 
-export default connect(mapStateToProps, { signup })(Signup);
+export default connect(mapStateToProps, { signup, closeModal })(Signup);

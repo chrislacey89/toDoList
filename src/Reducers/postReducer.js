@@ -18,6 +18,7 @@ const addTodo = (state, action) => {
   const updatedState = {
     todos: updatedTodos
   };
+
   return updatedState;
 };
 
