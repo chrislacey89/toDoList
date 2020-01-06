@@ -1,10 +1,4 @@
-import {
-  FETCH_POSTS,
-  NEW_POST,
-  DELETE_POST,
-  TOGGLE_COMPLETE,
-  UPDATE_POST
-} from './types';
+import { FETCH_POSTS, NEW_POST, DELETE_POST, TOGGLE_COMPLETE } from './types';
 import axios from 'axios';
 //
 export const fetchPosts = () => dispatch => {
