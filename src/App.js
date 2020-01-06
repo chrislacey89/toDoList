@@ -22,31 +22,37 @@ class App extends Component {
     todos: []
   };
 
-  getToken = () => {
-    const token = localStorage.getItem('token');
-    console.log('TCL: App -> getToken -> token', token);
-    return token;
+  // getToken = () => {
+  //   const token = localStorage.getItem('token');
+  //   console.log('TCL: App -> getToken -> token', token);
+  //   return token;
+  // };
+
+  test = () => {
+    console.log(this.props);
   };
 
   render() {
-    let routes = [
-      <Switch>
-        <div>
-          <Header />
+    let routes;
+    if (this.props.loggedIn === false) {
+      routes = [
+        <Switch>
+          <div>
+            <Header />
+            <Route path='/about' component={About} />
 
-          <Route path='/about' component={About} />
+            <Route
+              path='/login'
+              // render={props => <Login {...props} token={this.test} />}
+            />
+            <Route path='/signup' component={Signup} />
+          </div>
+        </Switch>
+      ];
+    }
 
-          <Route
-            path='/login'
-            render={props => <Login {...props} token={this.getToken} />}
-          />
-          <Route path='/signup' component={Signup} />
-        </div>
-      </Switch>
-    ];
-
-    if (this.props.isAuth) {
-      let routes = [
+    if (this.props.loggedIn === true) {
+      routes = [
         <Switch>
           <div>
             <Header />
@@ -71,7 +77,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
+const mapStateToProps = state => ({
+  token: state.authSettings.token,
+  userID: state.authSettings.userID,
+  loggedIn: state.authSettings.loggedIn,
+  error: state.authSettings.error
+});
 export default withRouter(connect(mapStateToProps)(App));
