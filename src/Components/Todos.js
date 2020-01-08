@@ -8,7 +8,10 @@ import Modal from '../Components/Modal';
 
 class Todos extends Component {
   componentDidMount() {
-    this.props.fetchPosts();
+    this.props.fetchPosts(
+      this.props.authSettings.token,
+      this.props.authSettings.userID
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,7 +43,8 @@ class Todos extends Component {
 }
 
 const mapStateToProps = state => ({
-  todos: state.posts.todos
+  todos: state.posts.todos,
+  authSettings: state.authSettings
 });
 
 export default connect(mapStateToProps, { fetchPosts })(Todos);
