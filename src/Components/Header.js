@@ -7,10 +7,16 @@ import classes from '../Styles/style.module.css';
 import Grid from '@material-ui/core/Grid';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
+import { logout } from '../Actions/authActions';
 
 import { connect } from 'react-redux';
 
 class Header extends Component {
+  onClick = () => {
+    console.log('clicked');
+    this.props.logout();
+  };
+
   render() {
     let loggedInLinks;
     if (this.props.loggedIn === false) {
@@ -57,6 +63,13 @@ class Header extends Component {
                   About
                 </Button>
               </Link>
+              <Button
+                color='textSecondary'
+                className={classes.container}
+                onClick={this.onClick}
+              >
+                Logout
+              </Button>
               {loggedInLinks}
             </Grid>
           </Toolbar>
@@ -69,4 +82,4 @@ const mapStateToProps = state => ({
   loggedIn: state.authSettings.loggedIn
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { logout })(Header);

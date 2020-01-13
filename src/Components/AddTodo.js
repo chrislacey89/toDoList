@@ -22,7 +22,7 @@ export class AddTodo extends Component {
         body: this.state.body
       };
 
-      this.props.createPost(post);
+      this.props.createPost(post, this.props.authSettings.token);
     }
   };
 
@@ -56,9 +56,8 @@ export class AddTodo extends Component {
   }
 }
 
-// //PropTypes
-// AddTodo.propTypes = {
-//   addTodo: PropTypes.func.isRequired
-// };
+const mapStateToProps = state => ({
+  authSettings: state.authSettings
+});
 
-export default connect(null, { createPost })(AddTodo);
+export default connect(mapStateToProps, { createPost })(AddTodo);

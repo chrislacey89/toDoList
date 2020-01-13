@@ -15,7 +15,7 @@ const initialState = {
 const login = (state, action) => {
   console.log('login in reducer');
   console.log('TCL: login -> action', action);
-  localStorage.setItem('token', 'response.data.token');
+  // localStorage.setItem('token', 'response.data.token');
 
   return updateObject(state, {
     // resStatus: action.payload.status,
@@ -34,6 +34,10 @@ const signup = (state, action) => {
 
 const authFail = (state, action) => {
   console.log('authFail reducer');
+  console.log(action.payload);
+  console.log(action.payload.response);
+
+  console.log('TCL: authFail -> action', action);
   return updateObject(state, {
     resStatus: action.payload.response.status
   });
@@ -47,7 +51,8 @@ const closeModal = (state, action) => {
 };
 
 const logout = (state, action) => {
-  return updateObject(state, { token: null, userID: null });
+  console.log('logout reducer');
+  return updateObject(state, { token: null, userID: null, loggedIn: false });
 };
 
 export default function(state = initialState, action) {

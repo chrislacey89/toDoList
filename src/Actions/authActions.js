@@ -1,4 +1,4 @@
-import { SIGN_UP, LOG_IN, ERROR, CLOSE_MODAL } from './types';
+import { SIGN_UP, LOG_IN, ERROR, CLOSE_MODAL, LOG_OUT } from './types';
 import axios from 'axios';
 //
 // export const fetchPosts = () => dispatch => {
@@ -62,4 +62,11 @@ export const login = (email, password) => dispatch => {
     .catch(err => {
       dispatch(signupFail(err));
     });
+};
+
+export const logout = () => {
+  console.log('logout action');
+  return {
+    type: LOG_OUT
+  };
 };

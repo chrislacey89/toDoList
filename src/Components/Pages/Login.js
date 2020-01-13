@@ -14,8 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Modal from '../../Components/Modal';
 
-import axios from 'axios';
-
 import { connect } from 'react-redux';
 import { login, closeModal } from '../../Actions/authActions';
 import { updateObject } from '../../utility';

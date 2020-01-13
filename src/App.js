@@ -41,10 +41,7 @@ class App extends Component {
             <Header />
             <Route path='/about' component={About} />
 
-            <Route
-              path='/login'
-              // render={props => <Login {...props} token={this.test} />}
-            />
+            <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
           </div>
         </Switch>

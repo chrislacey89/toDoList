@@ -46,7 +46,7 @@ export class TodoItem extends Component {
 
     const todoId = this.props.todo._id;
     const todoTitle = this.state.title;
-    this.props.updateTodo(todoId, todoTitle);
+    this.props.updateTodo(todoId, todoTitle, this.props.authSettings.token);
 
     if (todoTitle === '') {
       this.setState({
@@ -137,6 +137,12 @@ export class TodoItem extends Component {
 //   delTodo: PropTypes.func.isRequired
 // };
 
-export default connect(null, { deletePost, toggleComplete, updateTodo })(
-  TodoItem
-);
+const mapStateToProps = state => ({
+  authSettings: state.authSettings
+});
+
+export default connect(mapStateToProps, {
+  deletePost,
+  toggleComplete,
+  updateTodo
+})(TodoItem);

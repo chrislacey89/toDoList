@@ -1,9 +1,16 @@
 import { FETCH_POSTS, NEW_POST, DELETE_POST, TOGGLE_COMPLETE } from './types';
 import axios from 'axios';
-//
-export const fetchPosts = () => dispatch => {
+
+let config;
+export const fetchPosts = (token, userId) => dispatch => {
+  config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  };
+
   console.log('fetching');
-  axios.get('http://localhost:5000/api/todos/').then(res =>
+  axios.get('http://localhost:5000/api/todos/', config).then(res =>
     dispatch({
       type: FETCH_POSTS,
       payload: res.data.todos
@@ -11,11 +18,17 @@ export const fetchPosts = () => dispatch => {
   );
 };
 
-export const createPost = postData => dispatch => {
+export const createPost = (postData, token) => dispatch => {
   console.log('post action called');
   console.log(postData);
+  config = {
+    headers: {
+      Authorization: 'Bearer' + token
+    }
+  };
+
   axios
-    .post(`http://localhost:5000/api/todos/`, {
+    .post(`http://localhost:5000/api/todos/`, config, {
       title: postData.title,
       completed: false
     })
@@ -59,12 +72,23 @@ export const toggleComplete = todoItem => dispatch => {
     .then(res => console.log('this is the res', res));
 };
 
-export const updateTodo = (todoId, todoTitle) => dispatch => {
+export const updateTodo = (todoId, todoTitle, token) => dispatch => {
+  console.log(token);
+  config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  };
   if (todoTitle !== null) {
     console.log('not null!');
-    axios.put(`http://localhost:5000/api/todos/${todoId}`, {
-      title: todoTitle
-    });
+    axios.put(
+      `http://localhost:5000/api/todos/${todoId}`,
+      {
+        title: todoTitle
+      },
+      config
+    );
+
     // .then(res =>
     //   dispatch({
     //     type: UPDATE_POST,
