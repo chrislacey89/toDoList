@@ -1,20 +1,26 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/lib/integration/react';
+const initialState = {};
 
-// import the two exports from the last code snippet.
-import { persistor, store } from './store';
-// import your necessary custom components.
-import { RootComponent, LoadingView } from './components';
+const storage = createSensitiveStorage({
+  keychainService: 'myKeychain',
+  sharedPreferencesName: 'mySharedPrefs'
+});
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={<LoadingView />} persistor={persistor}>
-        <RootComponent />
-      </PersistGate>
-    </Provider>
-  );
+const config = {
+  key: 'root',
+  storage
 };
 
-export default App;
+const middleware = [thunk];
+
+const reducer = persistCombineReducers(config, rootReducer);
+
+export default () => {
+  let store = createStore(
+    reducer,
+    initialState,
+    compose(applyMiddleware(...middleware))
+  );
+  let persistor = persistStore(store);
+
+  return { store, persistor };
+};

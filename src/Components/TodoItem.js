@@ -36,9 +36,7 @@ export class TodoItem extends Component {
 
   toggleComplete = () => {
     const todoItem = this.props.todo;
-    this.props.toggleComplete(todoItem);
-
-    // this.props.toggleComplete()
+    this.props.toggleComplete(todoItem, this.props.authSettings.token);
   };
 
   onSubmit = e => {
@@ -68,7 +66,7 @@ export class TodoItem extends Component {
   onClick = () => {
     const todoId = this.props.todo._id;
     console.log(todoId);
-    this.props.deletePost(todoId);
+    this.props.deletePost(todoId, this.props.authSettings.token);
   };
 
   changeHandler = e => {
@@ -102,7 +100,7 @@ export class TodoItem extends Component {
             <Input
               disabled={this.checked()}
               id='standard-with-placeholder'
-              label={this.props.todo.title}
+              // label={this.props.todo.title}
               defaultValue={this.props.todo.title}
               // className={classes.textField}
               type='text'
