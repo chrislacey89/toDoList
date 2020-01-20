@@ -3,7 +3,8 @@ import {
   NEW_POST,
   DELETE_POST,
   TOGGLE_COMPLETE,
-  UPDATE_POST
+  UPDATE_POST,
+  CLEAR_POSTS
 } from '../Actions/types';
 import { updateObject } from '../utility';
 
@@ -11,6 +12,14 @@ import { updateObject } from '../utility';
 
 const initialState = {
   todos: []
+};
+
+const clearTodos = state => {
+  console.log('cleartodo reducer');
+  return {
+    ...state,
+    todos: []
+  };
 };
 
 const addTodo = (state, action) => {
@@ -88,6 +97,8 @@ export default function(state = initialState, action) {
       return toggleComplete(state, action);
     case UPDATE_POST:
       return updateTodo(state, action);
+    case CLEAR_POSTS:
+      return clearTodos(state);
 
     default:
       return state;

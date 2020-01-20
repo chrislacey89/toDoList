@@ -1,4 +1,10 @@
-import { FETCH_POSTS, NEW_POST, DELETE_POST, TOGGLE_COMPLETE } from './types';
+import {
+  FETCH_POSTS,
+  NEW_POST,
+  DELETE_POST,
+  TOGGLE_COMPLETE,
+  CLEAR_POSTS
+} from './types';
 import axios from 'axios';
 
 let config;
@@ -115,4 +121,11 @@ export const updateTodo = (todoId, todoTitle, token) => dispatch => {
     //   })
     // );
   } else console.log('No new value passed');
+};
+
+export const clearTodos = () => {
+  console.log('clear todo action');
+  return {
+    type: CLEAR_POSTS
+  };
 };

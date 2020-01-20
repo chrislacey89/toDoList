@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import { logout } from '../Actions/authActions';
+import { clearTodos } from '../Actions/postActions';
 
 import { connect } from 'react-redux';
 
@@ -15,6 +16,7 @@ class Header extends Component {
   onClick = () => {
     console.log('clicked');
     this.props.logout();
+    this.props.clearTodos();
   };
 
   render() {
@@ -82,4 +84,4 @@ const mapStateToProps = state => ({
   loggedIn: state.authSettings.loggedIn
 });
 
-export default connect(mapStateToProps, { logout })(Header);
+export default connect(mapStateToProps, { logout, clearTodos })(Header);

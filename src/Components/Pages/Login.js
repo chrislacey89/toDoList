@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Redirect } from 'react-router-dom';
+
 import Modal from '../../Components/Modal';
 
 import { connect } from 'react-redux';
@@ -83,6 +85,7 @@ class Login extends Component {
     const password = this.state.password;
 
     this.props.login(email, password);
+    console.log(this.props.authSettings);
   };
 
   inputChangeHandler = e => {
@@ -121,6 +124,10 @@ class Login extends Component {
   };
 
   render() {
+    if (this.props.authSettings.loggedIn === true) {
+      return <Redirect to='/' />;
+    }
+
     return (
       <Container component='main' maxWidth='xs'>
         <CssBaseline />

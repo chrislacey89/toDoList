@@ -7,6 +7,6 @@ export const UPDATE_POST = 'UPDATE_POST';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
-
+export const CLEAR_POSTS = 'CLEAR_POSTS';
 export const ERROR = 'ERROR';
 export const CLOSE_MODAL = 'CLOSE_MODAL';

@@ -33,6 +33,10 @@ class App extends Component {
   };
 
   render() {
+    // if (this.props.loggedIn === true) {
+    //   return <Redirect to='/' />;
+    // }
+
     let routes;
     if (this.props.loggedIn === false) {
       routes = [
@@ -52,6 +56,7 @@ class App extends Component {
       routes = [
         <Switch>
           <div>
+            <Redirect to='/' />
             <Header />
             <Route
               exact
