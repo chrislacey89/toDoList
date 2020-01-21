@@ -99,6 +99,7 @@ export class TodoItem extends Component {
             />
             <Input
               disabled={this.checked()}
+              fullWidth
               id='standard-with-placeholder'
               // label={this.props.todo.title}
               defaultValue={this.props.todo.title}

@@ -113,8 +113,8 @@ class Signup extends Component {
   };
 
   render() {
-    if (this.state.signupForm.resStatus === 201) {
-      return <Redirect to='/' />;
+    if (this.props.authSettings.resStatus === 201) {
+      return <Redirect to='/login' />;
     }
 
     return (

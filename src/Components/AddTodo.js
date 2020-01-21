@@ -24,6 +24,7 @@ export class AddTodo extends Component {
 
       this.props.createPost(post, this.props.authSettings.token);
     }
+    this.setState({ title: '' });
   };
 
   onChange = e =>

@@ -21,8 +21,23 @@ class Header extends Component {
 
   render() {
     let loggedInLinks;
-    if (this.props.loggedIn === false) {
+    if (this.props.loggedIn === true) {
       loggedInLinks = [
+        <div>
+          <Button
+            color='textSecondary'
+            className={classes.container}
+            onClick={this.onClick}
+          >
+            Logout
+          </Button>
+        </div>
+      ];
+    }
+
+    let loggedOutLinks;
+    if (this.props.loggedIn === false) {
+      loggedOutLinks = [
         <div>
           <Link component={RouterLink} to='/login'>
             <Button color='textSecondary' className={classes.container}>
@@ -65,14 +80,8 @@ class Header extends Component {
                   About
                 </Button>
               </Link>
-              <Button
-                color='textSecondary'
-                className={classes.container}
-                onClick={this.onClick}
-              >
-                Logout
-              </Button>
               {loggedInLinks}
+              {loggedOutLinks}
             </Grid>
           </Toolbar>
         </AppBar>

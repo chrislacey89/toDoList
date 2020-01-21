@@ -118,8 +118,10 @@ class Login extends Component {
       return 'A user with this email cannot be found.';
     } else if (resStatus === 402) {
       return 'Wrong password. Please try again';
-    } else if (resStatus === 200) {
-      return 'Sign up Successful!';
+    } else if (resStatus === 500) {
+      return 'Please enter a password.';
+    } else if (resStatus === 201) {
+      return 'Sign up Successful! Please login.';
     }
   };
 
