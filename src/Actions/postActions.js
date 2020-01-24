@@ -3,7 +3,8 @@ import {
   NEW_POST,
   DELETE_POST,
   TOGGLE_COMPLETE,
-  CLEAR_POSTS
+  CLEAR_POSTS,
+  UPDATE_POST
 } from './types';
 import axios from 'axios';
 
@@ -104,23 +105,20 @@ export const updateTodo = (todoId, todoTitle, token) => dispatch => {
       Authorization: 'Bearer ' + token
     }
   };
-  if (todoTitle !== null) {
-    console.log('not null!');
-    axios.put(
+  axios
+    .put(
       `http://localhost:5000/api/todos/${todoId}`,
       {
         title: todoTitle
       },
       config
+    )
+    .then(res =>
+      dispatch({
+        type: UPDATE_POST,
+        payload: res
+      })
     );
-
-    // .then(res =>
-    //   dispatch({
-    //     type: UPDATE_POST,
-    //     payload: todoTitle
-    //   })
-    // );
-  } else console.log('No new value passed');
 };
 
 export const clearTodos = () => {

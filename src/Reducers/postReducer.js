@@ -11,7 +11,8 @@ import { updateObject } from '../utility';
 // import { updateObject } from '../utility';
 
 const initialState = {
-  todos: []
+  todos: [],
+  updateSuccess: false
 };
 
 const clearTodos = state => {
@@ -62,23 +63,26 @@ const toggleComplete = (state, action) => {
 };
 
 const updateTodo = (state, action) => {
-  let updateTest = action.payload;
+  // let updateTest = action.payload;
   console.log('update reducer');
-  console.log(updateTest);
-  const stateClone = [...state.todos];
-  console.log(stateClone);
-  // const toggleComplete = stateClone.map(todo => {
-  //   if (todo._id === action.payload) {
-  //     todo.completed = !todo.completed;
-  //   }
-  //   return todo;
-  // });
-  // const updatedState = {
-  //   todos: toggleComplete
-  // };
-  // console.log(updatedState);
+  console.log(action.payload.data);
+  // console.log(updateTest);
+  const todosClone = [...state.todos];
+  const updateSuccessClone = [...state.updateSuccess];
+  const toggleComplete = todosClone.map(todo => {
+    if (todo._id === action.payload.data._id) {
+      todo.title = action.payload.data.title;
+    }
 
-  // return updatedState;
+    return todo;
+  });
+  const updatedState = {
+    todos: toggleComplete,
+    updatedState: true
+  };
+  console.log(updatedState);
+
+  return updatedState;
 };
 
 export default function(state = initialState, action) {
