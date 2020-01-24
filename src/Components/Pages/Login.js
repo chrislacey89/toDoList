@@ -3,6 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -13,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
+import classes from '../../Styles/style.module.css';
+import red from '@material-ui/core/colors/red';
 
 import Modal from '../../Components/Modal';
 
@@ -139,13 +142,19 @@ class Login extends Component {
             closeModal={this.closeModal}
             errorMessage={this.errorMessage()}
           />
+          <div style={{ padding: 20 }}>
+            <Grid container justify='center' spacing={0}>
+              <Avatar>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Grid item xs={12} justify='center'>
+                <Typography align='center' component='h1' variant='h5'>
+                  Login
+                </Typography>
+              </Grid>
+            </Grid>
+          </div>
 
-          <Avatar>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component='h1' variant='h5'>
-            Login
-          </Typography>
           <form noValidate onSubmit={this.onSubmit}>
             <TextField
               variant='outlined'
@@ -188,7 +197,7 @@ class Login extends Component {
               color='primary'
               loading={this.props.loading}
             >
-              > Login
+              Login
             </Button>
           </form>
         </div>

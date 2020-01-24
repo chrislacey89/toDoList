@@ -6,11 +6,15 @@
 }
 
 .rightAlign {
-  /* display: flex;
-  align-self: flex-end; */
+  display: flex;
+  align-self: flex-end;
 }
 
 .centerAlign {
-  /* display: flex;
-  align-items: center; */
+  display: flex;
+  align-items: center;
+}
+
+.green {
+  background-color: green;
 }
