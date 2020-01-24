@@ -126,12 +126,20 @@ class Signup extends Component {
             closeModal={this.closeModal}
             errorMessage={this.errorMessage()}
           />
-          <Avatar>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component='h1' variant='h5'>
-            Sign Up
-          </Typography>
+
+          <div style={{ padding: 20 }}>
+            <Grid container justify='center' spacing={0}>
+              <Avatar>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Grid item xs={12} justify='center'>
+                <Typography align='center' component='h1' variant='h5'>
+                  Sign Up
+                </Typography>
+              </Grid>
+            </Grid>
+          </div>
+
           <form noValidate onSubmit={this.onSubmit}>
             <TextField
               variant='outlined'
@@ -189,7 +197,7 @@ class Signup extends Component {
               color='primary'
               loading={this.props.loading}
             >
-              > Sign Up
+              Sign Up
             </Button>
           </form>
         </div>
