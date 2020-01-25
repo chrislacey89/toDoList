@@ -8,7 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { Redirect } from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
+
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -215,6 +218,20 @@ class Header extends Component {
         </AppBar>
         {loggedInDrawer}
         {loggedOutDrawer}
+        <div style={{ backgroundColor: 'red', color: 'coral' }}>
+          <Snackbar
+            color='secondary'
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center'
+            }}
+            open={true}
+            autoHideDuration={6000}
+            // onClose={handleClose}
+            message='Logged Out!'
+            style={{ backgroundColor: 'red', color: 'coral' }}
+          />
+        </div>
       </div>
     );
   }

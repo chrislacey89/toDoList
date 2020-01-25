@@ -9,7 +9,8 @@ const initialState = {
   resStatus: null,
   loggedIn: false,
   token: null,
-  userID: null
+  userID: null,
+  logOutSnackBar: false
 };
 
 const login = (state, action) => {
@@ -52,7 +53,12 @@ const closeModal = (state, action) => {
 
 const logout = (state, action) => {
   console.log('logout reducer');
-  return updateObject(state, { token: null, userID: null, loggedIn: false });
+  return updateObject(state, {
+    token: null,
+    userID: null,
+    loggedIn: false,
+    logOutSnackBar: true
+  });
 };
 
 export default function(state = initialState, action) {

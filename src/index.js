@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
+import { SnackbarProvider } from 'notistack';
 
 import './index.css';
 import App from './App';
@@ -15,7 +16,9 @@ const app = (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <App />
+        <SnackbarProvider>
+          <App />
+        </SnackbarProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider>

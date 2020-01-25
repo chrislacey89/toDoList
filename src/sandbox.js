@@ -1,26 +1,52 @@
-const initialState = {};
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import { Alert } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
 
-const storage = createSensitiveStorage({
-  keychainService: 'myKeychain',
-  sharedPreferencesName: 'mySharedPrefs'
-});
+function Alert(props) {
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
+}
 
-const config = {
-  key: 'root',
-  storage
-};
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2)
+    }
+  }
+}));
 
-const middleware = [thunk];
+export default function CustomizedSnackbars() {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
-const reducer = persistCombineReducers(config, rootReducer);
+  const handleClick = () => {
+    setOpen(true);
+  };
 
-export default () => {
-  let store = createStore(
-    reducer,
-    initialState,
-    compose(applyMiddleware(...middleware))
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  return (
+    <div className={classes.root}>
+      <Button variant='outlined' onClick={handleClick}>
+        Open success snackbar
+      </Button>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity='success'>
+          This is a success message!
+        </Alert>
+      </Snackbar>
+      <Alert severity='error'>This is an error message!</Alert>
+      <Alert severity='warning'>This is a warning message!</Alert>
+      <Alert severity='info'>This is an information message!</Alert>
+      <Alert severity='success'>This is a success message!</Alert>
+    </div>
   );
-  let persistor = persistStore(store);
-
-  return { store, persistor };
-};
+}
