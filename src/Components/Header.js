@@ -6,6 +6,14 @@ import Button from '@material-ui/core/Button';
 import classes from '../Styles/style.module.css';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
@@ -42,6 +50,44 @@ class Header extends Component {
       ];
     }
 
+    let drawer = [
+      <Drawer
+        className={classes.drawer}
+        variant='persistent'
+        anchor='right'
+        open={true}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={console.log('close')}>
+            <ChevronRightIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          <ListItem>
+            <Link component={RouterLink} to='/about'>
+              <Button color='textSecondary'>About</Button>
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link component={RouterLink} to='/login'>
+              <Button color='textSecondary'>Login</Button>
+            </Link>
+          </ListItem>
+
+          <ListItem>
+            <Link component={RouterLink} to='/signup'>
+              <Button color='white'>Sign Up</Button>
+            </Link>
+          </ListItem>
+        </List>
+        <Divider />
+      </Drawer>
+    ];
+
     let loggedOutLinks;
     if (this.props.loggedIn === false) {
       loggedOutLinks = [
@@ -63,6 +109,15 @@ class Header extends Component {
               </Button>
             </Link>
           </Hidden>
+
+          <IconButton
+            color='inherit'
+            aria-label='open drawer'
+            edge='end'
+            // onClick={handleDrawerOpen}
+          >
+            <MenuIcon />
+          </IconButton>
         </div>
       ];
     }
@@ -94,6 +149,7 @@ class Header extends Component {
             </Grid>
           </Toolbar>
         </AppBar>
+        {drawer}
       </div>
     );
   }
