@@ -23,76 +23,101 @@ import { clearTodos } from '../Actions/postActions';
 import { connect } from 'react-redux';
 
 class Header extends Component {
+  state = {
+    drawerOpen: false
+  };
+
   onClick = () => {
     console.log('clicked');
     this.props.logout();
     this.props.clearTodos();
   };
 
+  handleDrawerOpen = () => {
+    this.setState({ drawerOpen: true });
+  };
+
+  handleDrawerClose = () => {
+    this.setState({ drawerOpen: false });
+  };
+
   render() {
     let loggedInLinks;
+    let loggedInDrawer;
+
     if (this.props.loggedIn === true) {
       loggedInLinks = [
         <div>
-          <Link component={RouterLink} to='/about'>
-            <Button color='textSecondary' className={classes.container}>
-              About
+          <Hidden xsDown>
+            <Link component={RouterLink} to='/about'>
+              <Button color='textSecondary' className={classes.container}>
+                About
+              </Button>
+            </Link>
+            <Button
+              color='textSecondary'
+              className={classes.container}
+              onClick={this.onClick}
+            >
+              Logout
             </Button>
-          </Link>
-          <Button
-            color='textSecondary'
-            className={classes.container}
-            onClick={this.onClick}
-          >
-            Logout
-          </Button>
+          </Hidden>
+          <Hidden smUp>
+            <IconButton
+              color='inherit'
+              aria-label='open drawer'
+              edge='end'
+              onClick={this.handleDrawerOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
         </div>
+      ];
+
+      loggedInDrawer = [
+        <Drawer
+          className={classes.drawer}
+          variant='persistent'
+          anchor='right'
+          open={this.state.drawerOpen}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={this.handleDrawerClose}>
+              <ChevronRightIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem>
+              <Link component={RouterLink} to='/about'>
+                <Button color='textSecondary'>About</Button>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Button
+                color='textSecondary'
+                className={classes.container}
+                onClick={this.onClick}
+              >
+                Logout
+              </Button>
+            </ListItem>
+          </List>
+          <Divider />
+        </Drawer>
       ];
     }
 
-    let drawer = [
-      <Drawer
-        className={classes.drawer}
-        variant='persistent'
-        anchor='right'
-        open={true}
-        classes={{
-          paper: classes.drawerPaper
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={console.log('close')}>
-            <ChevronRightIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <ListItem>
-            <Link component={RouterLink} to='/about'>
-              <Button color='textSecondary'>About</Button>
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link component={RouterLink} to='/login'>
-              <Button color='textSecondary'>Login</Button>
-            </Link>
-          </ListItem>
-
-          <ListItem>
-            <Link component={RouterLink} to='/signup'>
-              <Button color='white'>Sign Up</Button>
-            </Link>
-          </ListItem>
-        </List>
-        <Divider />
-      </Drawer>
-    ];
-
     let loggedOutLinks;
+    let loggedOutDrawer;
     if (this.props.loggedIn === false) {
       loggedOutLinks = [
         <div>
-          <Hidden smDown>
+          <Hidden xsDown>
             <Link component={RouterLink} to='/about'>
               <Button color='textSecondary' className={classes.container}>
                 About
@@ -109,16 +134,55 @@ class Header extends Component {
               </Button>
             </Link>
           </Hidden>
-
-          <IconButton
-            color='inherit'
-            aria-label='open drawer'
-            edge='end'
-            // onClick={handleDrawerOpen}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Hidden smUp>
+            <IconButton
+              color='inherit'
+              aria-label='open drawer'
+              edge='end'
+              onClick={this.handleDrawerOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
         </div>
+      ];
+
+      loggedOutDrawer = [
+        <Drawer
+          className={classes.drawer}
+          variant='persistent'
+          anchor='right'
+          open={this.state.drawerOpen}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={this.handleDrawerClose}>
+              <ChevronRightIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem>
+              <Link component={RouterLink} to='/about'>
+                <Button color='textSecondary'>About</Button>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link component={RouterLink} to='/login'>
+                <Button color='textSecondary'>Login</Button>
+              </Link>
+            </ListItem>
+
+            <ListItem>
+              <Link component={RouterLink} to='/signup'>
+                <Button color='white'>Sign Up</Button>
+              </Link>
+            </ListItem>
+          </List>
+          <Divider />
+        </Drawer>
       ];
     }
 
@@ -149,7 +213,8 @@ class Header extends Component {
             </Grid>
           </Toolbar>
         </AppBar>
-        {drawer}
+        {loggedInDrawer}
+        {loggedOutDrawer}
       </div>
     );
   }
