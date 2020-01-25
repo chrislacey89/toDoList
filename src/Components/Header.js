@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import classes from '../Styles/style.module.css';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import { logout } from '../Actions/authActions';
@@ -24,6 +26,11 @@ class Header extends Component {
     if (this.props.loggedIn === true) {
       loggedInLinks = [
         <div>
+          <Link component={RouterLink} to='/about'>
+            <Button color='textSecondary' className={classes.container}>
+              About
+            </Button>
+          </Link>
           <Button
             color='textSecondary'
             className={classes.container}
@@ -39,16 +46,23 @@ class Header extends Component {
     if (this.props.loggedIn === false) {
       loggedOutLinks = [
         <div>
-          <Link component={RouterLink} to='/login'>
-            <Button color='textSecondary' className={classes.container}>
-              Login
-            </Button>
-          </Link>
-          <Link component={RouterLink} to='/signup'>
-            <Button color='white' className={classes.container}>
-              Sign Up
-            </Button>
-          </Link>
+          <Hidden smDown>
+            <Link component={RouterLink} to='/about'>
+              <Button color='textSecondary' className={classes.container}>
+                About
+              </Button>
+            </Link>
+            <Link component={RouterLink} to='/login'>
+              <Button color='textSecondary' className={classes.container}>
+                Login
+              </Button>
+            </Link>
+            <Link component={RouterLink} to='/signup'>
+              <Button color='white' className={classes.container}>
+                Sign Up
+              </Button>
+            </Link>
+          </Hidden>
         </div>
       ];
     }
@@ -75,11 +89,6 @@ class Header extends Component {
               justify='flex-end'
               alignItems='center'
             >
-              <Link component={RouterLink} to='/about'>
-                <Button color='textSecondary' className={classes.container}>
-                  About
-                </Button>
-              </Link>
               {loggedInLinks}
               {loggedOutLinks}
             </Grid>
