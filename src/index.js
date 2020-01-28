@@ -16,7 +16,9 @@ const app = (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <SnackbarProvider>
+        <SnackbarProvider
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
           <App />
         </SnackbarProvider>
       </BrowserRouter>

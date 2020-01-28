@@ -8,9 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Redirect } from 'react-router-dom';
-import Snackbar from '@material-ui/core/Snackbar';
-import CloseIcon from '@material-ui/icons/Close';
+
+import { withSnackbar } from 'notistack';
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Drawer from '@material-ui/core/Drawer';
@@ -34,6 +33,13 @@ class Header extends Component {
     console.log('clicked');
     this.props.logout();
     this.props.clearTodos();
+    this.props.enqueueSnackbar('Logged Out!', {
+      variant: 'success',
+      anchorOrigin: {
+        horizontal: 'center',
+        vertical: 'bottom'
+      }
+    });
   };
 
   handleDrawerOpen = () => {
@@ -115,6 +121,33 @@ class Header extends Component {
       ];
     }
 
+    let logoLink;
+    if (this.props.loggedIn) {
+      logoLink = (
+        <Link component={RouterLink} to='/' underline='none'>
+          <Typography
+            variant='h6'
+            className={classes.centerAlign}
+            color='textSecondary'
+          >
+            To Do List
+          </Typography>
+        </Link>
+      );
+    } else {
+      logoLink = (
+        <Link component={RouterLink} to='/login' underline='none'>
+          <Typography
+            variant='h6'
+            className={classes.centerAlign}
+            color='textSecondary'
+          >
+            To Do List
+          </Typography>
+        </Link>
+      );
+    }
+
     let loggedOutLinks;
     let loggedOutDrawer;
     if (this.props.loggedIn === false) {
@@ -194,15 +227,7 @@ class Header extends Component {
         <AppBar position='static' className={classes.container}>
           <Toolbar>
             <Grid container direction='row' justify='left' alignItems='center'>
-              <Link component={RouterLink} to='/' underline='none'>
-                <Typography
-                  variant='h6'
-                  className={classes.centerAlign}
-                  color='textSecondary'
-                >
-                  To Do List
-                </Typography>{' '}
-              </Link>
+              {logoLink}
             </Grid>
 
             <Grid
@@ -218,20 +243,7 @@ class Header extends Component {
         </AppBar>
         {loggedInDrawer}
         {loggedOutDrawer}
-        <div style={{ backgroundColor: 'red', color: 'coral' }}>
-          <Snackbar
-            color='secondary'
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center'
-            }}
-            open={true}
-            autoHideDuration={6000}
-            // onClose={handleClose}
-            message='Logged Out!'
-            style={{ backgroundColor: 'red', color: 'coral' }}
-          />
-        </div>
+        <div style={{ backgroundColor: 'red', color: 'coral' }}></div>
       </div>
     );
   }
@@ -240,4 +252,6 @@ const mapStateToProps = state => ({
   loggedIn: state.authSettings.loggedIn
 });
 
-export default connect(mapStateToProps, { logout, clearTodos })(Header);
+export default withSnackbar(
+  connect(mapStateToProps, { logout, clearTodos })(Header)
+);

@@ -14,6 +14,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Input } from '@material-ui/core';
 import Modal from '../Components/Modal';
+import { withSnackbar } from 'notistack';
 
 export class TodoItem extends Component {
   state = {
@@ -44,13 +45,27 @@ export class TodoItem extends Component {
 
     const todoId = this.props.todo._id;
     const todoTitle = this.state.title;
-    this.props.updateTodo(todoId, todoTitle, this.props.authSettings.token);
 
     if (todoTitle === '') {
-      this.setState({
-        inputError: true
+      this.props.enqueueSnackbar('Enter text before updating your Todo Item.', {
+        variant: 'error',
+        anchorOrigin: {
+          horizontal: 'center',
+          vertical: 'bottom'
+        }
+      });
+    } else {
+      this.props.updateTodo(todoId, todoTitle, this.props.authSettings.token);
+
+      this.props.enqueueSnackbar('Update Saved!', {
+        variant: 'success',
+        anchorOrigin: {
+          horizontal: 'center',
+          vertical: 'bottom'
+        }
       });
     }
+
     console.log(this.state);
   };
 
@@ -140,8 +155,10 @@ const mapStateToProps = state => ({
   authSettings: state.authSettings
 });
 
-export default connect(mapStateToProps, {
-  deletePost,
-  toggleComplete,
-  updateTodo
-})(TodoItem);
+export default withSnackbar(
+  connect(mapStateToProps, {
+    deletePost,
+    toggleComplete,
+    updateTodo
+  })(TodoItem)
+);

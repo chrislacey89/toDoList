@@ -1,24 +1,10 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
-import { Alert } from '@material-ui/lab';
-import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant='filled' {...props} />;
-}
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2)
-    }
-  }
-}));
-
-export default function CustomizedSnackbars() {
-  const classes = useStyles();
+export default function SimpleSnackbar() {
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -34,19 +20,33 @@ export default function CustomizedSnackbars() {
   };
 
   return (
-    <div className={classes.root}>
-      <Button variant='outlined' onClick={handleClick}>
-        Open success snackbar
-      </Button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity='success'>
-          This is a success message!
-        </Alert>
-      </Snackbar>
-      <Alert severity='error'>This is an error message!</Alert>
-      <Alert severity='warning'>This is a warning message!</Alert>
-      <Alert severity='info'>This is an information message!</Alert>
-      <Alert severity='success'>This is a success message!</Alert>
+    <div>
+      <Button onClick={handleClick}>Open simple snackbar</Button>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center'
+        }}
+        open={ToggleRadioButtonUnchecked}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message='Note archived'
+        action={
+          <React.Fragment>
+            <Button color='secondary' size='small' onClick={handleClose}>
+              UNDO
+            </Button>
+            <IconButton
+              size='small'
+              aria-label='close'
+              color='inherit'
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize='small' />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
     </div>
   );
 }

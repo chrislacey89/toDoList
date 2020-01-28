@@ -68,7 +68,6 @@ const updateTodo = (state, action) => {
   console.log(action.payload.data);
   // console.log(updateTest);
   const todosClone = [...state.todos];
-  const updateSuccessClone = [...state.updateSuccess];
   const toggleComplete = todosClone.map(todo => {
     if (todo._id === action.payload.data._id) {
       todo.title = action.payload.data.title;
@@ -78,9 +77,8 @@ const updateTodo = (state, action) => {
   });
   const updatedState = {
     todos: toggleComplete,
-    updatedState: true
+    updateSuccess: true
   };
-  console.log(updatedState);
 
   return updatedState;
 };

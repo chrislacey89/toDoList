@@ -33,18 +33,13 @@ class App extends Component {
   };
 
   render() {
-    // if (this.props.loggedIn === true) {
-    //   return <Redirect to='/' />;
-    // }
-
     let routes;
     if (this.props.loggedIn === false) {
       routes = [
         <Switch>
           <div>
-            <Header />
+            <Redirect to='/login' /> <Header />
             <Route path='/about' component={About} />
-
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
           </div>

@@ -3,6 +3,8 @@ import TodoItem from './TodoItem';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 import { fetchPosts, deletePost } from '../Actions/postActions';
+import { Redirect } from 'react-router-dom';
+
 // import PropTypes from 'prop-types';
 
 class Todos extends Component {
@@ -22,7 +24,8 @@ class Todos extends Component {
 
   render() {
     //  props.todos comes from from App.js. The Props is set there
-    console.log(this.props.todos);
+    console.log(this.props);
+
     return this.props.todos.map(todo => (
       <TodoItem
         key={uuid.v4()}
